@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import pinguin from "../images/pinguin-face.png";
 
 function SignIn(props){
     return (
         <form className="form">
             <h3>Welcome my friend !</h3>
-            <img src="pinguin-face.png" className="avatar-talk" alt="your avatar"/>
+            <img src={pinguin} className="avatar-talk" alt="your avatar"/>
             <p className="avatar-text">To play the game, you first have to subscribe. After that, let's the game begin ! </p>
                 <input type="text" className="register-input" placeholder="Username"/>
                 <input type="password" className="register-input" placeholder="Password" />

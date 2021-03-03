@@ -123,6 +123,7 @@ h3 {
   border-right: 1500px solid rgb(187, 235, 252);
 }
 
+
 /*Round transparent map*/
 
 .round-map {
@@ -135,6 +136,7 @@ h3 {
   border: solid 3px rgb(255, 255, 255);
   margin: 20px;
 }
+
 
 /* Avatars */
 
@@ -153,7 +155,7 @@ h3 {
   border-radius: 20px;
   padding: 20px;
   width: 110px;
-  height: 150px;
+  height: auto;
 }
 
 .avatar-card:hover {
