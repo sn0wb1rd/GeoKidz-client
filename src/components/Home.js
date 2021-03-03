@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-// import roundMap from "./public/images/rounded-map.jpg"
-=======
 import roundMap from "../images/round-map.png";
 import pinguin from "../images/pinguin-face.png";
 import fox from "../images/fox-face.png";
 import unicorn from "../images/unicorn-34.png";
->>>>>>> origin/alexandra
 
 const Home = () => {
   return (

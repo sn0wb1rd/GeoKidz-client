@@ -10,12 +10,9 @@ import Nav from "./components/Nav";
 //test
 
 function App() {
-<<<<<<< HEAD
     const [loggedInUser, setLoggedInUser]  = useState(null)
     const [error, setError]  = useState(null)
     
-
-
 const handleSignUp = (event) => {
   event.preventDefault()
   let user = {
@@ -42,28 +39,6 @@ const handleSignUp = (event) => {
 
 }
 
-=======
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleSignUp = (event) => {
-    event.preventDefault();
-    let user = {
-      username: event.target.username.value,
-      password: event.target.password.value,
-    };
-
-    axios
-      .post(`${config.API_URL}/api/signup`, user)
-      .then((response) => {
-        setLoggedInUser(response.data);
-        props.history.push("/");
-      })
-      .catch((err) => {
-        setError(err);
-      });
-  };
->>>>>>> origin/alexandra
 
   return (
     <div className="App">
