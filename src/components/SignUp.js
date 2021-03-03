@@ -2,9 +2,9 @@ import React from 'react';
 
 function SignUp(props){
     return (
-        <form>
+        <form onSubmit={props.onSignUp}>
             <div className="form-group">
-                <input type="text" className="form-control" id="InputUsername" name="username" placeholder="username"/>
+                <input name="username" type="text" className="form-control" id="InputUsername" placeholder="username"/>
             </div>
             <div className="form-group">
                 <input name="password" type="password" className="form-control" id="InputPassword" placeholder="password" />
