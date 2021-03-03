@@ -22,14 +22,21 @@ const handleSignUp = (event) => {
     password: event.target.password.value,
   }
 
+  console.log(`${config.API_URL}/api/signup`)
+  console.log(user)
+
   axios
-    .post(`${config.API_URL}/api/signup`,user)
+    .post(`${config.API_URL}/api/signup`, user)
+    
     .then((response) => {
       setLoggedInUser(response.data)
-      props.history.push('/')   
+      console.log('login -- ', loggedInUser)
+      // after signin, go back to homepage
+      // props.history.push('/')   
     })
     .catch((err) => {
-      setError(err)
+      // setError(err)
+      console.log('burned tosti')
     })
 
 }

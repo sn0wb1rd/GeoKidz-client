@@ -1,7 +1,9 @@
 import React from 'react';
 
 function SignUp(props){
+    console.log('Signup props-----', props)
     return (
+        
         <form onSubmit={props.onSignUp}>
             <div className="form-group">
                 <input name="username" type="text" className="form-control" id="InputUsername" placeholder="username"/>
