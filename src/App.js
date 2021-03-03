@@ -5,8 +5,9 @@ import config from './config'
 import Home from "./components/Home"
 import SignIn from "./components/SingIn";
 import SignUp from "./components/SignUp";
+import Nav from "./components/Nav";
 
-
+//test
 
 
 function App() {
@@ -45,6 +46,7 @@ const handleSignUp = (event) => {
   return (
     <div className="App">
       <Switch>
+      <Nav />
         <Route exact path="/" component={Home} 
 
         />
