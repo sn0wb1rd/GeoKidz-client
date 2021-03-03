@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import roundMap from "./public/images/rounded-map.jpg"
+// import roundMap from "./public/images/rounded-map.jpg"
 
 const Home = () => {
   return (
