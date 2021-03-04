@@ -5,8 +5,9 @@ import config from "./config";
 import Home from "./components/Home";
 import SignIn from "./components/SingIn";
 import SignUp from "./components/SignUp";
-import Nav from "./components/Nav";
+import MyNav from "./components/MyNav";
 import Map from "./components/Map";
+import MapDetails from "./components/MapDetails"
 
 
 function App(props) {
@@ -77,7 +78,7 @@ function App(props) {
   return (
     <div className="App">
       <div className="gradient-background">
-        <Nav />
+        <MyNav />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" render={(routeProps) => {
@@ -91,9 +92,9 @@ function App(props) {
             }}
           />
           <Route
-            path="/mapdetail"
+            path="/mapdetails"
             render={(routeProps) => {
-              return <SignUp  />
+              return <MapDetails  />
             }}
           />
           <Route path="/map" component={Map}/>
