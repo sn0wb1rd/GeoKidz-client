@@ -84,10 +84,11 @@ function App(props) {
       .post(`${config.API_URL}/api/logout`, {}, {withCredentials: true})
       .then((response) => {
         setLoggedInUser(null)
-        console.log('logout post loggeinUser: ', response)
-
+        console.log('logout post loggedinUser: ', response)
+        history.push('/map')
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log('error while logging out', err)
 
       })
   }
