@@ -9,27 +9,35 @@ const Home = () => {
   return (
     <div>
       <div className="horizontally-align">
+      <div className="vertically-align">
         <h1>Create treasures and find other ones.</h1>
+        <Link to="/signin">
+          <button className="btn">Play</button>
+        </Link>
+        </div>
         <img src={roundMap} alt="round-map" className="round-map"></img>
       </div>
       <div className="horizontally-align">
         <div className="vertically-align">
-          <h3>Choose a guide :</h3>
+          <h3>New here ? Choose a guide :</h3>
           <div className="avatars">
             <div className="avatar-card">
-              <img src={unicorn} alt="unicorn" className="avatar"></img>
+              <Link to="/signup/unicorn">
+                <img src={unicorn} alt="unicorn" className="avatar"></img>
+              </Link>
             </div>
             <div className="avatar-card">
-              <img src={pinguin} alt="pinguin" className="avatar"></img>
+              <Link to="/signup/pinguin">
+                <img src={pinguin} alt="pinguin" className="avatar"></img>
+              </Link>
             </div>
             <div className="avatar-card">
-              <img src={fox} alt="fox" className="avatar"></img>
+              <Link to="/signup/fox">
+                <img src={fox} alt="fox" className="avatar"></img>
+              </Link>
             </div>
           </div>
         </div>
-        <Link to="/signin">
-          <button className="btn">Play now</button>
-        </Link>
       </div>
     </div>
   );

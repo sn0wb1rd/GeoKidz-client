@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import SignIn from "./components/SingIn";
 import SignUp from "./components/SignUp";
 import Nav from "./components/Nav";
+import Map from "./components/Map";
 
 
 function App() {
@@ -71,15 +72,16 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" render={(routeProps) => {
-            return <SignIn onSignIn={handleSignIn} {...routeProps} />
+            return <SignIn onSignIn={handleSignIn} {...routeProps} guide="fox"/>
             }}
           />
           <Route
-            path="/signup"
+            path="/signup/:guide"
             render={(routeProps) => {
-              return <SignUp onSignUp={handleSignUp} {...routeProps} />
+              return <SignUp onSignUp={handleSignUp} {...routeProps}  />
             }}
           />
+          <Route path="/map" component={Map}/>
         </Switch>
       </div>
       <div className="empty-triangle"></div>
