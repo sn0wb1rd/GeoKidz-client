@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
 
-  console.log('in Nav, loggedinuser: --', props)
+  // console.log('in Nav, loggedinuser: --', props)
 
   return (
     <nav>

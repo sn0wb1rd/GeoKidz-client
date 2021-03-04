@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp";
 import MyNav from "./components/MyNav";
 import Map from "./components/Map";
 import MapDetails from "./components/MapDetails"
+import AddMapItem from "./components/AddMapItem"
 
 
 function App(props) {
@@ -16,12 +17,7 @@ function App(props) {
   const history = useHistory(); 
   console.log('LoggedInuser: ', loggedInUser)
 
-  // After sigin, redirect to the map page
-  useEffect(() => {
-    if (loggedInUser !== null) {
-      history.push('/mapdetails')
-    }  
-  }, [loggedInUser])
+
 
   // This will run just once after the first render and never again
   // Like componentDidMount
@@ -32,11 +28,11 @@ function App(props) {
         .then((response) => {
           setLoggedInUser(response.data)
           console.log('in useEffect loggedin user: ', loggedInUser)
-        })
-          
+        })          
         .catch((err) => {console.log('error with useeffect --', err) })       
     }
   }, [])
+
     
   const handleSignUp = (event) => {
     event.preventDefault()
@@ -52,6 +48,7 @@ function App(props) {
       .post(`${config.API_URL}/api/signup`, user,  {withCredentials: true})      
       .then((response) => {
         setLoggedInUser(response.data)
+        history.push('/map')
       })
       .catch((err) => {
         // setError(err)
@@ -71,7 +68,8 @@ function App(props) {
       .post(`${config.API_URL}/api/signin`, user, {withCredentials: true})  
       .then((response) => {
         setLoggedInUser(response.data)
-        console.log('LoggedIn! --  ', loggedInUser)
+        console.log('LoggedIn! --  loggedInUser=', loggedInUser)
+        history.push('/map') 
       })
       .catch((err) => {
         // setError(err)
@@ -110,19 +108,22 @@ function App(props) {
           <Route
             path="/signup/:guide"
             render={(routeProps) => {
-              return <SignUp onSignUp={handleSignUp} {...routeProps}  />
+              return <SignUp onSignUp={handleSignUp} {...routeProps} />
             }}
           />
           <Route
             path="/mapdetails"
             render={(routeProps) => {
-              return <MapDetails  
-              user={loggedInUser}  
-
-              />
+              return <MapDetails user={loggedInUser} {...routeProps} />
             }}
           />
-          <Route path="/map" component={Map}/>
+          <Route exact path="/map" component={Map}/>
+
+          <Route path="/map/additem" 
+          render={(routeProps) => {
+            return <AddMapItem {...routeProps}/>
+          }}            
+           />
         </Switch>
       </div>
       <div className="empty-triangle"></div>
