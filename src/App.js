@@ -13,31 +13,56 @@ function App() {
     const [loggedInUser, setLoggedInUser]  = useState(null)
     const [error, setError]  = useState(null)
     
-const handleSignUp = (event) => {
-  event.preventDefault()
-  let user = {
-    username: event.target.username.value,
-    password: event.target.password.value,
+  const handleSignUp = (event) => {
+    event.preventDefault()
+    let user = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    }
+    console.log(`${config.API_URL}/api/signup`)
+    console.log(user)
+
+
+    axios
+      .post(`${config.API_URL}/api/signup`, {withCredentials: true})      
+      .then((response) => {
+        setLoggedInUser(response.data)
+        // console.log('signup -- ', loggedInUser)
+        // after signin, go back to homepage
+        // props.history.push('/')   
+      })
+      .catch((err) => {
+        // setError(err)
+        console.log('burned tosti')
+      })
+
   }
 
-  console.log(`${config.API_URL}/api/signup`)
-  console.log(user)
+  const handleSignIn = (event) => {
+    event.preventDefault()
+    let user = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    }
 
-  axios
-    .post(`${config.API_URL}/api/signup`, user)
-    
-    .then((response) => {
-      setLoggedInUser(response.data)
-      console.log('login -- ', loggedInUser)
-      // after signin, go back to homepage
-      // props.history.push('/')   
-    })
-    .catch((err) => {
-      // setError(err)
-      console.log('burned tosti')
-    })
+    console.log('in handlesignin user ---- ', user)
+    console.log(`${config.API_URL}/api/signin`)
+    console.log(user.username, user.password)
 
-}
+    axios
+      .post(`${config.API_URL}/api/signin`, user)  
+      .then((response) => {
+        // setLoggedInUser(response.data)
+        console.log('login -- ', loggedInUser)
+        // after signin, go back to homepage
+        // props.history.push('/')   
+      })
+      .catch((err) => {
+        // setError(err)
+        console.log('burned tosti', err)
+      })
+
+  }
 
 
   return (
@@ -46,16 +71,19 @@ const handleSignUp = (event) => {
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/signin" component={SignIn} />
+          <Route path="/signin" render={(routeProps) => {
+            return <SignIn onSignIn={handleSignIn} {...routeProps} />
+            }}
+          />
           <Route
             path="/signup"
             render={(routeProps) => {
-              return <SignUp onSignUp={handleSignUp} {...routeProps} />;
+              return <SignUp onSignUp={handleSignUp} {...routeProps} />
             }}
           />
         </Switch>
       </div>
-      <div class="empty-triangle"></div>
+      <div className="empty-triangle"></div>
     </div>
   );
 }

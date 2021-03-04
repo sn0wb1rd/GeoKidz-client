@@ -28,7 +28,7 @@ const Home = () => {
           </div>
         </div>
         <Link to="/signin">
-          <button class="btn">Play now</button>
+          <button className="btn">Play now</button>
         </Link>
       </div>
     </div>
