@@ -22,12 +22,16 @@ function SignUp(props){
         <form onSubmit={props.onSignUp} className="form">
         <h3>Welcome my friend !</h3>
         <img src={getGuideImg(props.match.params.guide)} className="avatar-talk" alt="your avatar"/>
+        <input name="guide" type="hidden" value={props.match.params.guide}></input>
         <p className="avatar-text">To play the game, you first have to subscribe. After that, let's the game begin ! </p>
             <div className="form-group">
                 <input name="username" type="text" className="register-input" id="InputUsername" placeholder="Username"/>
             </div>
             <div className="form-group">
                 <input name="password" type="password" className="register-input" id="InputPassword" placeholder="Password" />
+            </div>
+            <div className="form-group">
+                <input name="superpower" type="text" className="register-input" id="InputSuperpower" placeholder="Set your superpower here!" />
             </div>
             <button type="submit" className="btn centered-btn">Play</button>
         </form>

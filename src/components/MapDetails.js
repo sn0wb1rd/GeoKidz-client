@@ -1,15 +1,20 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const MyDetails = () => {
+const MyDetails = (props) => {
+  console.log('in mapdetails Props: --', props)
+  // const {user} = props
+  console.log(props.user)
+
+
+
+
   return (
     <div>
 
-        <Link to="/signin">SignIn </Link>
-       <Link to="/signup">SignOut </Link>
+       this is the page: mapdetails
 
-
-    </div>
+     </div>
   );
 };
 

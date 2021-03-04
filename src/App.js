@@ -16,32 +16,37 @@ function App(props) {
   const history = useHistory(); 
   console.log('LoggedInuser: ', loggedInUser)
 
+  // After sigin, redirect to the map page
   useEffect(() => {
     if (loggedInUser !== null) {
-      history.push('/')
+      history.push('/mapdetails')
     }  
   }, [loggedInUser])
 
-  // needed?
+  // This will run just once after the first render and never again
+  // Like componentDidMount
   useEffect(() => {
-    if (loggedInUser !== null) {
+    if (loggedInUser === null) {
       axios
         .get(`${config.API_URL}/api/user`, {withCredentials:true})
         .then((response) => {
-          // console.log('response get user -- ', response.data) 
-          // setLoggedInUser(response.data)
+          setLoggedInUser(response.data)
+          console.log('in useEffect loggedin user: ', loggedInUser)
         })
           
         .catch((err) => {console.log('error with useeffect --', err) })       
     }
-  }, [loggedInUser])
+  }, [])
     
   const handleSignUp = (event) => {
     event.preventDefault()
     let user = {
       username: event.target.username.value,
       password: event.target.password.value,
+      guide: event.target.guide.value,
+      superpower: event.target.superpower.value,
     }
+    console.log('user sigup: ---- ', user)
 
     axios
       .post(`${config.API_URL}/api/signup`, user,  {withCredentials: true})      
@@ -50,7 +55,7 @@ function App(props) {
       })
       .catch((err) => {
         // setError(err)
-        console.log('burned tosti')
+        console.log('burned tosti', err)
       })
 
   }
@@ -75,10 +80,27 @@ function App(props) {
 
   }
 
+  const handleLogout = (event) => {
+    console.log('--here in handlelogout')
+    axios
+      .post(`${config.API_URL}/api/logout`, {}, {withCredentials: true})
+      .then((response) => {
+        setLoggedInUser(null)
+        console.log('logout post loggeinUser: ', response)
+
+      })
+      .catch(() => {
+
+      })
+  }
+
   return (
     <div className="App">
       <div className="gradient-background">
-        <MyNav />
+        <MyNav 
+          onlogout={handleLogout}
+          user={loggedInUser}         
+        />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" render={(routeProps) => {
@@ -94,7 +116,10 @@ function App(props) {
           <Route
             path="/mapdetails"
             render={(routeProps) => {
-              return <MapDetails  />
+              return <MapDetails  
+              user={loggedInUser}  
+
+              />
             }}
           />
           <Route path="/map" component={Map}/>
