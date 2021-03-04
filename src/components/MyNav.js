@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = (props) => {
+
+  // console.log('in Nav, loggedinuser: --', props)
+
   return (
     <nav>
     <Link to="/" className="no-style-link">
@@ -17,6 +20,19 @@ const Nav = () => {
         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
       </svg>
       </Link>
+
+      {
+        props.user ? (
+          <button onClick={props.onlogout} >Logout</button>
+        ) : (
+          <>
+            <Link to="/signin">SignIn </Link>
+            <Link to="/">Signup </Link>
+          </>
+        )
+      }   
+
+
     </nav>
   );
 };

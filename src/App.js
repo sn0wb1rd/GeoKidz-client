@@ -1,39 +1,58 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useParams } from "react-router-dom";
+import { Switch, Route, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import config from "./config";
 import Home from "./components/Home";
 import SignIn from "./components/SingIn";
 import SignUp from "./components/SignUp";
-import Nav from "./components/Nav";
+import MyNav from "./components/MyNav";
 import MyMap from "./components/MyMap";
+import MapDetails from "./components/MapDetails"
+import AddMapItem from "./components/AddMapItem"
 
 
-function App() {
-    const [loggedInUser, setLoggedInUser]  = useState(null)
-    const [error, setError]  = useState(null)
+function App(props) {
+  const [loggedInUser, setLoggedInUser]  = useState(null)
+  const [error, setError]  = useState(null)
+  const history = useHistory(); 
+  console.log('LoggedInuser: ', loggedInUser)
+
+
+
+  // This will run just once after the first render and never again
+  // Like componentDidMount
+  useEffect(() => {
+    if (loggedInUser === null) {
+      axios
+        .get(`${config.API_URL}/api/user`, {withCredentials:true})
+        .then((response) => {
+          setLoggedInUser(response.data)
+          console.log('in useEffect loggedin user: ', loggedInUser)
+        })          
+        .catch((err) => {console.log('error with useeffect --', err) })       
+    }
+  }, [])
+
     
   const handleSignUp = (event) => {
     event.preventDefault()
     let user = {
       username: event.target.username.value,
       password: event.target.password.value,
+      guide: event.target.guide.value,
+      superpower: event.target.superpower.value,
     }
-    console.log(`${config.API_URL}/api/signup`)
-    console.log(user)
-
+    console.log('user sigup: ---- ', user)
 
     axios
-      .post(`${config.API_URL}/api/signup`, {withCredentials: true})      
+      .post(`${config.API_URL}/api/signup`, user,  {withCredentials: true})      
       .then((response) => {
         setLoggedInUser(response.data)
-        // console.log('signup -- ', loggedInUser)
-        // after signin, go back to homepage
-        // props.history.push('/')   
+        history.push('/map')
       })
       .catch((err) => {
         // setError(err)
-        console.log('burned tosti')
+        console.log('burned tosti', err)
       })
 
   }
@@ -45,30 +64,41 @@ function App() {
       password: event.target.password.value,
     }
 
-    console.log('in handlesignin user ---- ', user)
-    console.log(`${config.API_URL}/api/signin`)
-    console.log(user.username, user.password)
-
     axios
-      .post(`${config.API_URL}/api/signin`, user)  
+      .post(`${config.API_URL}/api/signin`, user, {withCredentials: true})  
       .then((response) => {
-        // setLoggedInUser(response.data)
-        console.log('login -- ', loggedInUser)
-        // after signin, go back to homepage
-        // props.history.push('/')   
+        setLoggedInUser(response.data)
+        console.log('LoggedIn! --  loggedInUser=', loggedInUser)
+        history.push('/map') 
       })
       .catch((err) => {
         // setError(err)
-        console.log('burned tosti', err)
+        console.log('burned tosti:', err)
       })
 
   }
 
+  const handleLogout = (event) => {
+    console.log('--here in handlelogout')
+    axios
+      .post(`${config.API_URL}/api/logout`, {}, {withCredentials: true})
+      .then((response) => {
+        setLoggedInUser(null)
+        console.log('logout post loggeinUser: ', response)
+
+      })
+      .catch(() => {
+
+      })
+  }
 
   return (
     <div className="App">
       <div className="gradient-background">
-        <Nav />
+        <MyNav 
+          onlogout={handleLogout}
+          user={loggedInUser}         
+        />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" render={(routeProps) => {
@@ -78,10 +108,22 @@ function App() {
           <Route
             path="/signup/:guide"
             render={(routeProps) => {
-              return <SignUp onSignUp={handleSignUp} {...routeProps}  />
+              return <SignUp onSignUp={handleSignUp} {...routeProps} />
             }}
           />
-          <Route path="/map" render={(MyMap)} />
+          <Route
+            path="/mapdetails"
+            render={(routeProps) => {
+              return <MapDetails user={loggedInUser} {...routeProps} />
+            }}
+          />
+          <Route exact path="/map" component={MyMap}/>
+
+          <Route path="/map/additem" 
+          render={(routeProps) => {
+            return <AddMapItem {...routeProps}/>
+          }}            
+           />
         </Switch>
       </div>
       <div className="empty-triangle"></div>
