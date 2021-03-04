@@ -6,6 +6,10 @@ html, body {
   background-color: rgb(187, 235, 252);
 }
 
+html, body, #map {
+  height: 100%;
+  width: 100vw;
+}
 
 /* General setup */
 
@@ -57,13 +61,12 @@ h3 {
 }
 
 .btn:focus {
-  outline:0;
+  outline: 0;
 }
 
 .centered-btn {
   margin: auto;
 }
-
 
 /* Flex and responsive boxes) */
 
@@ -115,7 +118,6 @@ h3 {
   text-align: center;
 }
 
-
 /* Background */
 
 .gradient-background {
@@ -131,7 +133,6 @@ h3 {
   border-right: 1500px solid rgb(187, 235, 252);
 }
 
-
 /*Round transparent map*/
 
 .round-map {
@@ -144,7 +145,6 @@ h3 {
   border: solid 3px rgb(255, 255, 255);
   margin: 20px;
 }
-
 
 /* Avatars */
 
@@ -186,4 +186,10 @@ h3 {
   margin: 10px auto;
 }
 
+/* Map */
 
+#mapid {
+  height: 600px;
+  width: 600px;
+  border: solid 2px white;
+}

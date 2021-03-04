@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import SignIn from "./components/SingIn";
 import SignUp from "./components/SignUp";
 import Nav from "./components/Nav";
-import Map from "./components/Map";
+import MyMap from "./components/MyMap";
 
 
 function App() {
@@ -81,7 +81,7 @@ function App() {
               return <SignUp onSignUp={handleSignUp} {...routeProps}  />
             }}
           />
-          <Route path="/map" component={Map}/>
+          <Route path="/map" render={(MyMap)} />
         </Switch>
       </div>
       <div className="empty-triangle"></div>
