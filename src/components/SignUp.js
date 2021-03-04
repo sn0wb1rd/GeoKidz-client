@@ -2,7 +2,6 @@ import React from 'react';
 import pinguin from "../images/pinguin-face.png";
 
 function SignUp(props){
-    console.log('Signup props-----', props)
     return (
         <form onSubmit={props.onSignUp} className="form">
         <h3>Welcome my friend !</h3>

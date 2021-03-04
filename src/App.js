@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useParams } from "react-router-dom";
+import { Switch, Route, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import config from "./config";
 import Home from "./components/Home";
@@ -8,9 +8,31 @@ import SignUp from "./components/SignUp";
 import Nav from "./components/Nav";
 
 
-function App() {
-    const [loggedInUser, setLoggedInUser]  = useState(null)
-    const [error, setError]  = useState(null)
+function App(props) {
+  const [loggedInUser, setLoggedInUser]  = useState(null)
+  const [error, setError]  = useState(null)
+  const history = useHistory(); 
+  console.log('LoggedInuser: ', loggedInUser)
+
+  useEffect(() => {
+    if (loggedInUser !== null) {
+      history.push('/')
+    }  
+  }, [loggedInUser])
+
+  // needed?
+  useEffect(() => {
+    if (loggedInUser !== null) {
+      axios
+        .get(`${config.API_URL}/api/user`, {withCredentials:true})
+        .then((response) => {
+          // console.log('response get user -- ', response.data) 
+          // setLoggedInUser(response.data)
+        })
+          
+        .catch((err) => {console.log('error with useeffect --', err) })       
+    }
+  }, [loggedInUser])
     
   const handleSignUp = (event) => {
     event.preventDefault()
@@ -18,17 +40,11 @@ function App() {
       username: event.target.username.value,
       password: event.target.password.value,
     }
-    console.log(`${config.API_URL}/api/signup`)
-    console.log(user)
-
 
     axios
-      .post(`${config.API_URL}/api/signup`, {withCredentials: true})      
+      .post(`${config.API_URL}/api/signup`, user,  {withCredentials: true})      
       .then((response) => {
         setLoggedInUser(response.data)
-        // console.log('signup -- ', loggedInUser)
-        // after signin, go back to homepage
-        // props.history.push('/')   
       })
       .catch((err) => {
         // setError(err)
@@ -44,25 +60,18 @@ function App() {
       password: event.target.password.value,
     }
 
-    console.log('in handlesignin user ---- ', user)
-    console.log(`${config.API_URL}/api/signin`)
-    console.log(user.username, user.password)
-
     axios
-      .post(`${config.API_URL}/api/signin`, user)  
+      .post(`${config.API_URL}/api/signin`, user, {withCredentials: true})  
       .then((response) => {
-        // setLoggedInUser(response.data)
-        console.log('login -- ', loggedInUser)
-        // after signin, go back to homepage
-        // props.history.push('/')   
+        setLoggedInUser(response.data)
+        console.log('LoggedIn! --  ', loggedInUser)
       })
       .catch((err) => {
         // setError(err)
-        console.log('burned tosti', err)
+        console.log('burned tosti:', err)
       })
 
   }
-
 
   return (
     <div className="App">
@@ -78,6 +87,12 @@ function App() {
             path="/signup"
             render={(routeProps) => {
               return <SignUp onSignUp={handleSignUp} {...routeProps} />
+            }}
+          />
+          <Route
+            path="/mapdetail"
+            render={(routeProps) => {
+              return <SignUp  />
             }}
           />
         </Switch>
