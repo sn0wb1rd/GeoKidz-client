@@ -7,13 +7,12 @@ function SignIn(props){
         <form className="form">
             <h3>Welcome my friend !</h3>
             <img src={pinguin} className="avatar-talk" alt="your avatar"/>
-            <p className="avatar-text">To play the game, you first have to subscribe. After that, let's the game begin ! </p>
                 <input type="text" className="register-input" placeholder="Username"/>
-                <input type="password" className="register-input" placeholder="Password" />
+                <input type="password" className="register-input" placeholder="Password"/>
                 <button type="submit" className="btn centered-btn">Play</button>
-                <Link  style={{marginLeft: '10px'}}  to="/signup">New here? Create an account here</Link>
+                <Link style={{marginLeft: '10px'}} to="/signup">New here? Create an account </Link>
         </form>
     )
 }
 
-export default SignIn
+export default SignIn;
