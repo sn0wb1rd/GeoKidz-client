@@ -1,12 +1,20 @@
 import React from "react";
 
-const AddMapItem = (onAdd) => {
- //if (!user) {return <Redirect to={'/'} /> }
+
+function AddMapItem (props) {
+  // console.log('in addmapitem  Props: --', props)
+  const {user, onAdd } = props
+  // console.log(onAdd)
+ 
+
+// // check if the user is loggedin for showing the page
+// if (!user) {return <Redirect to={'/'} /> }
 
   return (
     <div>
        this is the page: add mapItems
-       <form onSubmit={onAdd}>
+       Welcome 
+       <form onSubmit={onAdd} className="form">
             <div className="form-group">
                 <input name="image" type="text" className="register-input" id="Inputimage" placeholder="image url" />
             </div>
@@ -19,7 +27,11 @@ const AddMapItem = (onAdd) => {
             </div>
             <div className="form-group">
                 <input name="locdesc" type="text" className="register-input" id="LocationDescription" placeholder="Tell something about the location. Don't make it too easy for the finder!" />
-            </div>
+            </div>   
+            {/* here comes the lat and long. stm like value={lat}
+            Hidden, but can be passed in the onSubmit of the form */}
+            <input name="lat" type="hidden" ></input> 
+            <input name="long" type="hidden" ></input>        
             <button type="submit" className="btn centered-btn">Add Treasure!</button>
         </form>
      </div>
