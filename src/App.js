@@ -107,7 +107,7 @@ function App(props) {
     let mapitem = {
       itemname: event.target.itemname.value,
       image: event.target.image.value,
-      owner: loggedInUser.username,
+      owner: loggedInUser._id,
       locdesc: event.target.image.value,
       objhistory: newObjhistory,
     }
@@ -118,7 +118,7 @@ function App(props) {
     .then((response) => { 
       console.log('in Appjs handleSubmit res data: ', response.data)
       updateMapitems(response.data) })
-    .catch(() => {
+    .catch((err) => {
       setError(err.response.data)  
       console.log('burned tosti in post create item:', err)
     })
