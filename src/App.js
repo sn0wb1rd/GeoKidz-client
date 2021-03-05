@@ -54,7 +54,6 @@ function App(props) {
         history.push('/map')
       })
       .catch((err) => {
-        // setError(err)
         console.log('burned tosti', err)
         setError(err.response.data)
       })
@@ -124,6 +123,10 @@ function App(props) {
     })
   }
 
+
+
+
+
   return (
     <div className="App">
       <div className="gradient-background">
@@ -144,9 +147,9 @@ function App(props) {
             }}
           />
           <Route
-            path="/mapdetails"
+            path="/mapdetails/:mapitemId"
             render={(routeProps) => {
-              return <MapDetails user={loggedInUser} {...routeProps} />
+              return <MapDetails user={loggedInUser}  {...routeProps} />
             }}
           />
 

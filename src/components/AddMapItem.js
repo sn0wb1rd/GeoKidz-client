@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function AddMapItem (props) {
   // console.log('in addmapitem  Props: --', props)
   const {user, onAdd } = props
