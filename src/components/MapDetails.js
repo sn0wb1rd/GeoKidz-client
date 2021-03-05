@@ -29,15 +29,6 @@ const MyDetails = (props) => {
       })
   }
 
-  useEffect(() => {
-
-    
-
-  },[mapitemId])
-  
-
-
-
   return (
 
     <div>
