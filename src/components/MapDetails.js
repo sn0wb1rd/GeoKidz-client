@@ -9,7 +9,7 @@ const MyDetails = (props) => {
   console.log('in Mapdetails | user ', user)
   
   // check if the user is loggedin for showing the page
-  if (!user) {return <Redirect to={'/'} /> }
+  //if (!user) {return <Redirect to={'/'} /> }
 
 
   return (

@@ -1,14 +1,10 @@
 import React from "react";
 
 const AddMapItem = (onAdd) => {
-  console.log('in addmapitem  Props: --', props.match.user)
-
-// // check if the user is loggedin for showing the page
-// if (!user) {return <Redirect to={'/'} /> }
+ //if (!user) {return <Redirect to={'/'} /> }
 
   return (
     <div>
-
        this is the page: add mapItems
        <form onSubmit={onAdd}>
             <div className="form-group">
@@ -26,8 +22,6 @@ const AddMapItem = (onAdd) => {
             </div>
             <button type="submit" className="btn centered-btn">Add Treasure!</button>
         </form>
-
-
      </div>
   );
 };
