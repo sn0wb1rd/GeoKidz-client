@@ -10,18 +10,19 @@ const AddMapItem = (props) => {
     <div>
 
        this is the page: add mapItems
-       <form>
+       <form onSubmit={onAdd}>
             <div className="form-group">
-                <input name="password" type="password" className="register-input" id="InputPassword" placeholder="Password" />
+                <input name="image" type="text" className="register-input" id="Inputimage" placeholder="image url" />
             </div>
             <div className="form-group">
                 <input name="itemname" type="text" className="register-input" id="ItemName" placeholder="Give your new treasure a name!"/>
             </div>
             <div className="form-group">
-                <input name="password" type="password" className="register-input" id="InputPassword" placeholder="Password" />
+                {/* schould only be a non-editble field with only placeholder with the loggedin user */}
+                <input name="owner" type="text" className="register-input" id="Owner" placeholder="Owner" />
             </div>
             <div className="form-group">
-                <input name="superpower" type="text" className="register-input" id="InputSuperpower" placeholder="Set your superpower here!" />
+                <input name="locdesc" type="text" className="register-input" id="LocationDescription" placeholder="Tell something about the location. Don't make it too easy for the finder!" />
             </div>
             <button type="submit" className="btn centered-btn">Add Treasure!</button>
         </form>

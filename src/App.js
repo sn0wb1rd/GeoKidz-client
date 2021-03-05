@@ -13,6 +13,7 @@ import About from "./components/About";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser]  = useState(null)
+  const [mapitems, updateMapitems] = useState([])
   const [error, setError]  = useState(null)
   const history = useHistory(); 
   console.log('LoggedInuser: ', loggedInUser)
@@ -74,10 +75,9 @@ function App(props) {
         history.push('/map') 
       })
       .catch((err) => {
-        // setError(err)
         console.log('burned tosti:', err)
+        setError(err.response.data)        
       })
-
   }
 
   const handleLogout = (event) => {
@@ -90,9 +90,29 @@ function App(props) {
         history.push('/')
       })
       .catch((err) => {
+        setError(err.response.data)  
         console.log('error while logging out', err)
-
       })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    let mapitem = {
+      itemname: event.target.name.value,
+      image: event.target.image.value,
+      owner: 'HarryP',
+      locdesc: event.target.image.value,
+    }
+
+    axios
+    .post(`${config.API_URL}/api/create`, mapitem, {withCredentials: true})
+    .then((response) => { 
+      console.log('in Appjs handleSubmit res data: ', response.data)
+      updateMapitems(response.data) })
+    .catch(() => {
+      setError(err.response.data)  
+      console.log('burned tosti in post create item:', err)
+    })
   }
 
   return (
@@ -120,17 +140,19 @@ function App(props) {
               return <MapDetails user={loggedInUser} {...routeProps} />
             }}
           />
+
+          <Route 
+            path="/map/create" 
+            render={(routeProps) => {
+              return <AddMapItem onAdd={handleSubmit} user={loggedInUser} {...routeProps}/>
+            }}            
+           />       
+
+
           <Route path="/map" render={(routeProps) => {
               return <MyMap user={loggedInUser} {...routeProps} />
             }}
           />
-
-          <Route 
-            path="/map/additem" 
-            render={(routeProps) => {
-              return <AddMapItem {...routeProps}/>
-            }}            
-           />
 
           <Route
             path="/about"

@@ -1,6 +1,6 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import "leaflet/dist/leaflet.css";
 import stonePin from "../images/stone-pin.png";
 import L from "leaflet";
@@ -41,6 +41,8 @@ const MyMap = (props) => {
           </Popup>
         </Marker>
       </MapContainer>
+
+      <Link to="/map/create">add a new treasure on the map! </Link>
     </div>
   );
 };

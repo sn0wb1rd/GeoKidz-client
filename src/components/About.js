@@ -22,6 +22,7 @@ const About = (props) => {
       } 
         <Link to="/mapdetails">go to mapdetails </Link>
         <Link to="/map">go to the map </Link>
+        <Link to="/map/create">add a treasure on the map </Link>
      </div>
   );
 };
