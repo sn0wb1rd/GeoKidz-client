@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddMapItem = (props) => {
+const AddMapItem = (onAdd) => {
   console.log('in addmapitem  Props: --', props.match.user)
 
 // // check if the user is loggedin for showing the page
