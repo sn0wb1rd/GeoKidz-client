@@ -10,9 +10,9 @@ function AddMapItem (props) {
 // // check if the user is loggedin for showing the page
 // if (!user) {return <Redirect to={'/'} /> }
 
+
   return (
     <div>
-
        this is the page: add mapItems
        Welcome 
        <form onSubmit={onAdd} className="form">
@@ -35,8 +35,6 @@ function AddMapItem (props) {
             <input name="long" type="hidden" ></input>        
             <button type="submit" className="btn centered-btn">Add Treasure!</button>
         </form>
-
-
      </div>
   );
 };

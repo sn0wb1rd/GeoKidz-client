@@ -9,33 +9,31 @@ const MyDetails = (props) => {
   const {user} = props
   const [error, setError]  = useState(null)
   const [mapdetail, setMapdetails] = useState([])
+  const [mapitemId, setMapitemId] = useState(props.match.params.mapitemId)
 
   // check if the user is loggedin for showing the page
   // if (!user) {return <Redirect to={'/'} /> }
 
 
 
-  const getMapdetails = () => {
-    let mapitemId = props.match.params.mapitemId
-    // console.log('in Mydetails - getMapDetails ', mapitemId)
-    
+  const getMapdetails = () => {  
+    // console.log('in Mydetails - getMapDetails ', mapitemId)    
     axios
       .get(`${config.API_URL}/api/mapitems/${mapitemId}`)
       .then((response) => {
-        console.log('in response data: ', response)
         setMapdetails(response.data)
-        console.log('check: 1', mapdetail.itemname)
       })
       .catch((err) => {
         console.log('burned tosti', err)
-        setError(err.response.data)
+        setError(err)
       })
   }
 
   useEffect(() => {
-    setMapdetails(getMapdetails)
-    console.log('check 2', mapdetail)
-  },[])
+
+    
+
+  },[mapitemId])
   
 
 
@@ -45,14 +43,17 @@ const MyDetails = (props) => {
     <div>
 
        this is the page: mapdetails
-       <button onClick={() => getMapdetails()  } >Klik to get data</button>
+       <button onClick={() => getMapdetails()  } >Klik to get the mapdetails </button>
        {
-         mapdetail && 
+         // the 'owner' object takes longer to load, therefore
+         // wait untill the owner is also has data
+         mapdetail.owner && 
          <div>
           <div>{mapdetail.image}</div>
           <div>{mapdetail.itemname}</div>
           <div>{mapdetail.locdesc}</div>
-          {/* <div>{mapdetail.owner}</div> */}
+          <div>{mapdetail.owner.username}</div>
+          <div>{mapdetail.owner.superpower}</div>          
         </div>
        }
      </div>
