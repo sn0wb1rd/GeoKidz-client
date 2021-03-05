@@ -97,12 +97,21 @@ function App(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    let mapitem = {
-      itemname: event.target.name.value,
-      image: event.target.image.value,
-      owner: 'HarryP',
-      locdesc: event.target.image.value,
+    console.log('here in the handleSubmit!')
+    // when new mapitem is created, the first founder is same as owner
+    let newObjhistory = {
+      finder: loggedInUser.username,
+      lat: 52.321213, // dummies
+      long: 4.838725, // dummies
     }
+    let mapitem = {
+      itemname: event.target.itemname.value,
+      image: event.target.image.value,
+      owner: loggedInUser.username,
+      locdesc: event.target.image.value,
+      objhistory: newObjhistory,
+    }
+    console.log('in Appjs in handleSubmit -mapitem-- ', mapitem)
 
     axios
     .post(`${config.API_URL}/api/create`, mapitem, {withCredentials: true})
