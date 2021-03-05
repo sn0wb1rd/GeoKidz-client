@@ -16,7 +16,6 @@ let getGuideImg = (guide) => {
 
 function SignUp(props){
     console.log('Signup props-----', props)
-    console.log(' guide-----', props.match.params.guide)
 
     return (
         <form onSubmit={props.onSignUp} className="form">
@@ -33,6 +32,10 @@ function SignUp(props){
               <div className="form-group">
                   <input name="superpower" type="text" className="register-input" id="InputSuperpower" placeholder="Set your superpower here!" />
               </div>
+              {/* error message by false signup: */}
+              {                
+                props.error && <p>{props.error.errorMessage}</p>        
+              }
               <button type="submit" className="btn centered-btn">Play</button>
          </form>
     )

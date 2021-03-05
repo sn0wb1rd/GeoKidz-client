@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
-
-  // console.log('in Nav, loggedinuser: --', props)
+  // console.log('in Nav | loggedinuser: --', loggedinuser)
+  // console.log('in Nav | loggedinuser: --', loggedinuser)
 
   return (
     <nav>
@@ -23,15 +23,11 @@ const Nav = (props) => {
 
       {
         props.user ? (
-          <button onClick={props.onlogout} >Logout</button>
-        ) : (
-          <>
-            <Link to="/signin">SignIn </Link>
-            <Link to="/">Signup </Link>
-          </>
-        )
+          <button onClick={props.onlogout}>Logout</button>
+        ) : (<></>)
       }   
 
+      <Link to="/about">About</Link>
 
     </nav>
   );

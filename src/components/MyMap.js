@@ -1,10 +1,15 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Redirect } from 'react-router-dom';
 import "leaflet/dist/leaflet.css";
 import stonePin from "../images/stone-pin.png";
 import L from "leaflet";
 
-const MyMap = () => {
+const MyMap = (props) => {
+  const {user} = props
+  // check if the user is loggedin for showing the page
+  if (!user) {return <Redirect to={'/'} /> }
+
   const position = [51.505, -0.09];
   let myIcon = L.icon({
     iconUrl: stonePin,

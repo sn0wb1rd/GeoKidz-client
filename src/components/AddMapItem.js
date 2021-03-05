@@ -2,9 +2,9 @@ import React from "react";
 
 const AddMapItem = (props) => {
   console.log('in addmapitem  Props: --', props.match.user)
-  // const {user} = props
 
-
+// // check if the user is loggedin for showing the page
+// if (!user) {return <Redirect to={'/'} /> }
 
   return (
     <div>

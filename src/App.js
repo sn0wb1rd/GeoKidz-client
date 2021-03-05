@@ -9,7 +9,7 @@ import MyNav from "./components/MyNav";
 import MyMap from "./components/MyMap";
 import MapDetails from "./components/MapDetails"
 import AddMapItem from "./components/AddMapItem"
-
+import About from "./components/About";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser]  = useState(null)
@@ -27,12 +27,14 @@ function App(props) {
         .get(`${config.API_URL}/api/user`, {withCredentials:true})
         .then((response) => {
           setLoggedInUser(response.data)
-          console.log('in useEffect loggedin user: ', loggedInUser)
+          console.log('in useEffect loggedinuser: ', loggedInUser)
         })          
-        .catch((err) => {console.log('error with useeffect --', err) })       
+        .catch((err) => {
+          console.log('In Appjs, useEffect error with useeffect since loggeninuser is null')
+          setError(err.response.data) 
+      })       
     }
   }, [])
-
     
   const handleSignUp = (event) => {
     event.preventDefault()
@@ -53,8 +55,8 @@ function App(props) {
       .catch((err) => {
         // setError(err)
         console.log('burned tosti', err)
+        setError(err.response.data)
       })
-
   }
 
   const handleSignIn = (event) => {
@@ -68,7 +70,7 @@ function App(props) {
       .post(`${config.API_URL}/api/signin`, user, {withCredentials: true})  
       .then((response) => {
         setLoggedInUser(response.data)
-        console.log('LoggedIn! --  loggedInUser=', loggedInUser)
+        console.log('LoggedIn! in handleSignIn --  loggedInUser: ', loggedInUser)
         history.push('/map') 
       })
       .catch((err) => {
@@ -84,8 +86,8 @@ function App(props) {
       .post(`${config.API_URL}/api/logout`, {}, {withCredentials: true})
       .then((response) => {
         setLoggedInUser(null)
-        console.log('logout post loggedinUser: ', response)
-        history.push('/map')
+        console.log('Logout post | loggedinUser: ', response)
+        history.push('/')
       })
       .catch((err) => {
         console.log('error while logging out', err)
@@ -103,13 +105,13 @@ function App(props) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/signin" render={(routeProps) => {
-            return <SignIn onSignIn={handleSignIn} {...routeProps} guide="fox"/>
+              return <SignIn error={error} onSignIn={handleSignIn} {...routeProps} guide="fox"/>
             }}
           />
           <Route
             path="/signup/:guide"
             render={(routeProps) => {
-              return <SignUp onSignUp={handleSignUp} {...routeProps} />
+              return <SignUp error={error} onSignUp={handleSignUp} {...routeProps} />
             }}
           />
           <Route
@@ -118,14 +120,26 @@ function App(props) {
               return <MapDetails user={loggedInUser} {...routeProps} />
             }}
           />
-          <Route exact path="/map" component={MyMap}/>
+          <Route path="/map" render={(routeProps) => {
+              return <MyMap user={loggedInUser} {...routeProps} />
+            }}
+          />
 
-          <Route path="/map/additem" 
-          render={(routeProps) => {
-            return <AddMapItem {...routeProps}/>
-          }}            
+          <Route 
+            path="/map/additem" 
+            render={(routeProps) => {
+              return <AddMapItem {...routeProps}/>
+            }}            
            />
-        </Switch>
+
+          <Route
+            path="/about"
+            render={() => {
+              return <About user={loggedInUser} />
+            }}
+          />
+
+      </Switch>
       </div>
       <div className="empty-triangle"></div>
     </div>
