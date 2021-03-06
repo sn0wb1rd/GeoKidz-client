@@ -51,7 +51,7 @@ function App(props) {
       .post(`${config.API_URL}/api/signup`, user, { withCredentials: true })
       .then((response) => {
         setLoggedInUser(response.data);
-        history.push("/map");
+        history.push("/signin");
       })
       .catch((err) => {
         console.log("burned tosti", err);
@@ -97,6 +97,10 @@ function App(props) {
       });
   };
 
+  const handleDelete = (mapitemId) => {
+    console.log('here in the handle delelte')
+  }
+
   return (
     <div className="App">
       <div className="gradient-background">
@@ -106,13 +110,7 @@ function App(props) {
           <Route
             path="/signin"
             render={(routeProps) => {
-              return (
-                <SignIn
-                  error={error}
-                  onSignIn={handleSignIn}
-                  {...routeProps}
-                  guide="fox"
-                />
+              return (<SignIn error={error} onSignIn={handleSignIn} {...routeProps} guide="fox" />
               );
             }}
           />
@@ -127,7 +125,7 @@ function App(props) {
           <Route
             path="/mapdetails/:mapitemId"
             render={(routeProps) => {
-              return <MapDetails user={loggedInUser} {...routeProps} />;
+              return <MapDetails user={loggedInUser} onDelete={handleDelete} {...routeProps} />;
             }}
           />
 
@@ -135,10 +133,7 @@ function App(props) {
             path="/map/create"
             render={(routeProps) => {
               return (
-                <AddMapItem
-                  user={loggedInUser}
-                  {...routeProps}
-                />
+                <AddMapItem user={loggedInUser} {...routeProps}  />
               );
             }}
           />
