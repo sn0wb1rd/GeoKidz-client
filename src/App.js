@@ -14,16 +14,19 @@ import About from "./components/About";
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [mapitems, updateMapitems] = useState([]);
+  const [messageDel, setMessageDel]  = useState(null)
   const [error, setError] = useState(null);
   const history = useHistory();
-  console.log("LoggedInuser: ", loggedInUser);
 
-  // This will run just once after the first render and never again
+  // TODO: add to (almost) all request { withCredentials: true }
+
+  // This will run just once after the first render and never again (with [] as 2nd useEffect parameter)
   // Like componentDidMount
+  // storing data loggedin user so no new login is necessary   
   useEffect(() => {
     if (loggedInUser === null) {
       axios
-        .get(`${config.API_URL}/api/user`, { withCredentials: true })
+        .get(`${config.API_URL}/api/user`, {withCredentials: true})
         .then((response) => {
           setLoggedInUser(response.data);
           console.log("in useEffect loggedinuser: ", loggedInUser);
@@ -36,6 +39,19 @@ function App(props) {
         });
     }
   }, []);
+
+// retrieving all mapitems
+  useEffect(() => {    
+    axios
+      .get(`${config.API_URL}/api/mapitems`)
+      .then((response) => {
+        updateMapitems(response.data) })
+      .catch((err) => {
+        console.log(
+          "In Appjs, useEffect error with useeffect since loggeninuser is null");
+        setError(err.response.data);
+      })
+  }, [])
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -51,7 +67,7 @@ function App(props) {
       .post(`${config.API_URL}/api/signup`, user, { withCredentials: true })
       .then((response) => {
         setLoggedInUser(response.data);
-        history.push("/signin");
+        history.push("/map");
       })
       .catch((err) => {
         console.log("burned tosti", err);
@@ -95,37 +111,52 @@ function App(props) {
         setError(err.response.data);
         console.log("error while logging out", err);
       });
-  };
+  }; 
 
+   //delete a mapitem
   const handleDelete = (mapitemId) => {
-    console.log('here in the handle delelte')
-  }
+  console.log('here in the handle delelte ',mapitemId, messageDel )
+  axios
+  .delete(`${config.API_URL}/api/mapitems/${mapitemId}`)
+  .then(() => {
+    setMessageDel("Mapitem succesfully deleted")
+    let filteredMapitem = mapitems.filter((mapitem) => {
+      return mapitem._id !== mapitemId })
+    updateMapitems(filteredMapitem)    
+    
+    history.push("/map");
+  })
+  .catch((err) => {
+    setError(err.response.data);
+    console.log("error while deleting mapitem", err);
+  })
+  } 
+
 
   return (
     <div className="App">
       <div className="gradient-background">
         <MyNav onlogout={handleLogout} user={loggedInUser} />
+        
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
             path="/signin"
             render={(routeProps) => {
-              return (<SignIn error={error} onSignIn={handleSignIn} {...routeProps} guide="fox" />
-              );
+              return (<SignIn error={error} onSignIn={handleSignIn} {...routeProps} guide="fox" />);
             }}
           />
           <Route
             path="/signup/:guide"
             render={(routeProps) => {
               return (
-                <SignUp error={error} onSignUp={handleSignUp} {...routeProps} />
-              );
+                <SignUp error={error} onSignUp={handleSignUp} {...routeProps} />);
             }}
           />
           <Route
             path="/mapdetails/:mapitemId"
             render={(routeProps) => {
-              return <MapDetails user={loggedInUser} onDelete={handleDelete} {...routeProps} />;
+              return (<MapDetails error={error} user={loggedInUser} onDelete={handleDelete} {...routeProps} />);
             }}
           />
 
@@ -133,15 +164,15 @@ function App(props) {
             path="/map/create"
             render={(routeProps) => {
               return (
-                <AddMapItem user={loggedInUser} {...routeProps}  />
-              );
+                <AddMapItem user={loggedInUser} {...routeProps} /> );
             }}
           />
 
           <Route
             path="/map"
             render={(routeProps) => {
-              return <MyMap user={loggedInUser} {...routeProps} />;
+              return ( 
+                <MyMap user={loggedInUser} messageDel={messageDel} {...routeProps} /> );
             }}
           />
 
