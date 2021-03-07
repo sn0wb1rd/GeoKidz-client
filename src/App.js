@@ -13,7 +13,6 @@ import About from "./components/About";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [mapitems, updateMapitems] = useState([]);
   const [error, setError] = useState(null);
   const history = useHistory();
   console.log("LoggedInuser: ", loggedInUser);
