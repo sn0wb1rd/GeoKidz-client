@@ -11,11 +11,14 @@ import MapDetails from "./components/MapDetails";
 import AddMapItem from "./components/AddMapItem";
 import EditMapItem from "./components/EditMapItem"
 import About from "./components/About";
+import Profile from "./components/Profile";
+import NextStep from "./components/NextStep"
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [mapitems, updateMapitems] = useState([]);
   const [message, setMessage]  = useState(null)
+  const [messageDel, setMessageDel] = useState(null);
   const [error, setError] = useState(null);
   const history = useHistory();
 
@@ -23,11 +26,11 @@ function App(props) {
 
   // This will run just once after the first render and never again (with [] as 2nd useEffect parameter)
   // Like componentDidMount
-  // storing data loggedin user so no new login is necessary   
+  // storing data loggedin user so no new login is necessary
   useEffect(() => {
     if (loggedInUser === null) {
       axios
-        .get(`${config.API_URL}/api/user`, {withCredentials: true})
+        .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
           setLoggedInUser(response.data);
           console.log("in useEffect loggedinuser: ", loggedInUser);
@@ -41,18 +44,20 @@ function App(props) {
     }
   }, []);
 
-// retrieving all mapitems
-  useEffect(() => {    
+  // retrieving all mapitems
+  useEffect(() => {
     axios
       .get(`${config.API_URL}/api/mapitems`)
       .then((response) => {
-        updateMapitems(response.data) })
+        updateMapitems(response.data);
+      })
       .catch((err) => {
         console.log(
-          "In Appjs, useEffect error with useeffect since loggeninuser is null");
+          "In Appjs, useEffect error with useeffect since loggeninuser is null"
+        );
         setError(err.response.data);
-      })
-  }, [])
+      });
+  }, []);
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -112,79 +117,91 @@ function App(props) {
         setError(err.response.data);
         console.log("error while logging out", err);
       });
-  }; 
+  };
 
-   //delete a mapitem
+  //delete a mapitem
   const handleDelete = (mapitemId) => {
-  console.log('here in the handle delete ',mapitemId, message )
-  axios
-  .delete(`${config.API_URL}/api/mapitems/${mapitemId}`)
-  .then(() => {
-    setMessage("Treasure succesfully deleted!")
-    let filteredMapitem = mapitems.filter((mapitem) => {
-      return mapitem._id !== mapitemId })
-    updateMapitems(filteredMapitem)      
-    history.push("/map");
-  })
-  .catch((err) => {
-    setError(err.response.data);
-    console.log("error while deleting mapitem", err);
-  })
-  } 
+    console.log("here in the handle delelte ", mapitemId, messageDel);
+    axios
+      .delete(`${config.API_URL}/api/mapitems/${mapitemId}`)
+      .then(() => {
+        setMessageDel("Mapitem succesfully deleted");
+        let filteredMapitem = mapitems.filter((mapitem) => {
+          return mapitem._id !== mapitemId;
+        });
+        updateMapitems(filteredMapitem);
 
-  //edit a mapitem
-  const handleEditMapitem = (event) => {
-    console.log('here in the handleEditMapItem')
-    // console.log(mapitem)
-    console.log(event.target.locdesc.value)
-    // axios.
-    // .patch(`${config.API_URL}/mapitems/${mapitem._id}`, {
-    //   locdesc: ,
-    //   fidner: ,
-    //   lat: ,
-    //   long: ,
-
-    // })
-  }
-
+        history.push("/map");
+      })
+      .catch((err) => {
+        setError(err.response.data);
+        console.log("error while deleting mapitem", err);
+      });
+  };
 
   return (
     <div className="App">
       <div className="gradient-background">
         <MyNav onlogout={handleLogout} user={loggedInUser} />
 
-        message when something is deleted. Does not work yet; do not get null afterwards
+        {/* message when something is deleted. Does not work yet; do not get null afterwards */}
         {/* {                
           message && <p>message: {message}</p>        
         } */}
         
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/"
+            render={(routeProps) => (
+              <Home user={loggedInUser} {...routeProps} />
+            )}
+          />
           <Route
             path="/signin"
             render={(routeProps) => {
-              return (<SignIn error={error} onSignIn={handleSignIn} {...routeProps} guide="fox" />);
+              return (
+                <SignIn
+                  error={error}
+                  onSignIn={handleSignIn}
+                  {...routeProps}
+                  guide="fox"
+                />
+              );
             }}
           />
           <Route
             path="/signup/:guide"
             render={(routeProps) => {
               return (
-                <SignUp error={error} onSignUp={handleSignUp} {...routeProps} />);
+                <SignUp error={error} onSignUp={handleSignUp} {...routeProps} />
+              );
+            }}
+          />
+          <Route
+            path="/profile"
+            render={(routeProps) => {
+              return <Profile user={loggedInUser} {...routeProps} />;
             }}
           />
           <Route
             path="/mapdetails/:mapitemId"
             render={(routeProps) => {
-              return (<MapDetails error={error} user={loggedInUser} onDelete={handleDelete} {...routeProps} />);
+              return (
+                <MapDetails
+                  error={error}
+                  user={loggedInUser}
+                  onDelete={handleDelete}
+                  {...routeProps}
+                />
+              );
             }}
           />
 
           <Route
             path="/map/create"
             render={(routeProps) => {
-              return (
-                <AddMapItem user={loggedInUser} {...routeProps} /> );
+              return <AddMapItem user={loggedInUser} {...routeProps} />;
             }}
           />
 
@@ -209,6 +226,10 @@ function App(props) {
             render={() => {
               return <About user={loggedInUser} />;
             }}
+          />
+          <Route
+            path="/test"
+            component={NextStep}
           />
         </Switch>
       </div>

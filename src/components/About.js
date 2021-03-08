@@ -7,22 +7,26 @@ const About = (props) => {
   return (
     <div>
 
-      this is the page: About
+      <div>this is the page: About</div>
+
 
       {
         props.user ? (
           <button onClick={props.onlogout} >Logout</button>
         ) : (
           <div>            
-            <Link to="/signin">Already an user? Sing in here! </Link>
-            <Link to="/">New here? Click here to choose an guide and sign in!</Link>
+          <div><Link to="/signin">Already an user? Sing in here! </Link></div>
+          <div><Link to="/">New here? Click here to choose an guide and sign in!</Link></div>
             
           </div>
         )
       } 
-        <Link to="/mapdetails">go to mapdetails </Link>
-        <Link to="/map">go to the map </Link>
-        <Link to="/map/create">add a treasure on the map </Link>
+        <div><Link to="/mapdetails">go to mapdetails </Link></div>
+        <div><Link to="/map">go to the map </Link></div>
+        <div><Link to="/map/create">add a treasure on the map </Link></div>
+        <div><Link to="/map/edit">edit a treasure on the map </Link></div>
+        <div><img src="https://res.cloudinary.com/snowbird/image/upload/v1615137690/GeoKidz/pebble_8_wpovbn.jpg" alt="round-map" className="round-map"></img></div>
+   
      </div>
   );
 };

@@ -19,7 +19,7 @@ function SignUp(props){
 
     return (
         <form onSubmit={props.onSignUp} className="form">
-          <h3>Welcome my friend !</h3>
+          <h3>Welcome !</h3>
           <img src={getGuideImg(props.match.params.guide)} className="avatar-talk" alt="your avatar"/>
           <input name="guide" type="hidden" value={props.match.params.guide}></input>
           <p className="avatar-text">To play the game, you first have to subscribe. After that, let's the game begin ! </p>
@@ -36,7 +36,7 @@ function SignUp(props){
               {                
                 props.error && <p>{props.error.errorMessage}</p>        
               }
-              <button type="submit" className="btn centered-btn">Play</button>
+              <button type="submit" className="form-btn centered-btn">Play</button>
          </form>
     )
 }

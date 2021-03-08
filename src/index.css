@@ -3,23 +3,37 @@ html, body {
   margin: 0;
   overflow-x: hidden;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  background-color: rgb(187, 235, 252);
+  background-color: rgb(187, 235, 252)!important;
 }
 
-html, body, #map {
-  height: 100%;
-  width: 100vw;
-}
 
 /* General setup */
 
 nav {
   display: flex;
-  align-items: center;
+  align-content: center;
   color: white;
   padding: 20px 50px 0 50px;
   font-size: 25px;
   font-weight: 600;
+}
+
+.sub-menu {
+  background-color: transparent;
+  border: none;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.sub-menu:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.horizontally-align-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 h1 {
@@ -31,7 +45,7 @@ h1 {
 
 h3 {
   margin: 20px;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -40,32 +54,52 @@ h3 {
   color: white;
 }
 
+.no-style-link:hover {
+  text-decoration: none;
+  color: white;
+}
+
 /* Buttons */
 
-.btn {
+.geo-btn {
   background-color: rgb(24, 24, 89);
   color: white;
   border: none;
-  border-radius: 100px;
+  border-radius: 20px;
   margin: 30px;
   padding: 10px;
   z-index: 2;
   font-size: 20px;
   width: 100px;
-  box-shadow: 2px 2px 10px 2px rgb(59, 89, 155);
+  box-shadow: 1px 1px 5px 1px rgb(53, 49, 49);
 }
 
-.btn:hover {
+.form-btn {
+  background-color: rgb(24, 24, 89);
   color: white;
-  background-color: rgb(30, 30, 136);
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 7px 30px;
 }
 
-.btn:focus {
+.geo-btn:hover {
+  color: white;
+  background-color: rgb(26, 26, 124);
+}
+
+.geo-btn:focus {
   outline: 0;
 }
 
 .centered-btn {
   margin: auto;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
 }
 
 /* Flex and responsive boxes) */
@@ -96,13 +130,13 @@ h3 {
 .form {
   position: relative;
   display: flex;
-  padding: 30px;
+  padding: 40px;
   flex-direction: column;
   justify-content: center;
   z-index: 2;
   margin: 20px auto;
   align-content: center;
-  width: 300px;
+  width: 350px;
   background-color: white;
   height: 550px;
   border-radius: 20px;
@@ -111,11 +145,17 @@ h3 {
 }
 
 .register-input {
-  margin: 20px;
-  padding: 10px;
+  margin: 10px auto;
+  padding: 7px;
+  font-size: 14px;
+  width: 200px;
   border: solid 1px rgb(172, 171, 171);
   border-radius: 20px;
   text-align: center;
+}
+
+.input-group {
+  margin: 80px auto;
 }
 
 /* Background */
@@ -179,17 +219,26 @@ h3 {
 
 .avatar-text {
   padding: 0 20px;
+  font-size: 15px;
 }
 
 .avatar-talk {
-  width: 80px;
+  width: 60px;
   margin: 10px auto;
+
 }
 
 /* Map */
 
-#mapid {
+#map {
+  margin: 40px auto;
   height: 600px;
   width: 600px;
-  border: solid 2px white;
+  border: solid 50px rgb(255, 255, 255);
+  z-index: 2;
+}
+
+.stone-popUp {
+  width: 40px;
+  border-radius: 100%;
 }
