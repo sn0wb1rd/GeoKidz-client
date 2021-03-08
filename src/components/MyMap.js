@@ -38,15 +38,8 @@ const description = {
 
 const MyMap = () => {
   let [position, setPosition] = useState(null);
-  let [treasures, setTreasures] = useState(null);
-  let [nextPanel, setNextPanel] = useState(null);
+  let [treasures, setTreasures] = useState([]);
   let [setErr] = useState(null);
-
-  const checkNextStep = () => {
-    useEffect(() => {
-      setNextPanel()
-    })
-  }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -60,7 +53,7 @@ const MyMap = () => {
     axios
       .get(`${config.API_URL}/api/mapitems`)
       .then((response) => setTreasures(response.data))
-      .catch((err) => setErr(err.response.data));
+      .catch((err) => setErr(err));
   }, [setTreasures]);
 
   if (position) {
@@ -90,12 +83,14 @@ const MyMap = () => {
           >
             <Popup>
               <div style={popupContent}>
+              {ToastBody.image? (
                 <img
                   src={treasure.image}
-                  alt="stone"
+                  alt={treasure.itemname}
                   width="40px"
                   className="stone-popUp"
                 />
+              ): null}
                 <h5>{treasure.itemname}</h5>
                 <div style={description}>{treasure.locdesc}</div>
                 <button
