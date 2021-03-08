@@ -14,6 +14,7 @@ function AddMapItem(props) {
   const history = useHistory();
 
   const addTreasure = (event, pos) => {
+    console.log(event.target.itemname.value)
     let newObjhistory = {
       finder: user.username,
       lat: pos.coords.latitude,
@@ -22,22 +23,39 @@ function AddMapItem(props) {
 
     let mapitem = {
       itemname: event.target.itemname.value,
-      image: event.target.image.value,
+      image: event.target.image.files[0],
       owner: user._id,
       locdesc: event.target.locdesc.value,
       objhistory: newObjhistory,
     };
     console.log("in Appjs in handleSubmit -mapitem-- ", mapitem);
 
+    let uploadForm = new FormData();
+    uploadForm.append("imageUrl", mapitem.image);
+
     axios
-      .post(`${config.API_URL}/api/create`, mapitem, { withCredentials: true })
+      .post(`${config.API_URL}/api/upload`, uploadForm)
       .then((response) => {
-        console.log("in Appjs handleSubmit res data: ", response.data);
-        history.push("/map");
+        axios
+          .post(`${config.API_URL}/api/create`, {
+            itemname : mapitem.itemname,
+            image: response.data.image,
+            owner : mapitem.owner, 
+            locdesc: mapitem.locdesc,
+            objhistory: mapitem.objhistory
+          }, {
+            withCredentials: true,
+          })
+          .then((response) => {
+            console.log("in Appjs handleSubmit res data: ", response.data);
+            history.push("/map");
+          })
+          .catch((err) => {
+            console.log("burned tosti in post create item:", err);
+          });
       })
       .catch((err) => {
-        // setError(err.response.data);
-        console.log("burned tosti in post create item:", err);
+        console.log("Create failed", err);
       });
   };
 
@@ -71,7 +89,7 @@ function AddMapItem(props) {
         <div className="form-group">
           <input
             name="image"
-            type="text"
+            type="file"
             className="register-input"
             id="Inputimage"
             placeholder="image url"

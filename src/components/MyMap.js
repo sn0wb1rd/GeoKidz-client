@@ -51,11 +51,6 @@ const MyMap = (props) => {
     setLocdesc(event.target.value)
   }
 
-  const checkNextStep = () => {
-    useEffect(() => {
-      setNextPanel()
-    })
-  }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -69,7 +64,7 @@ const MyMap = (props) => {
     axios
       .get(`${config.API_URL}/api/mapitems`)
       .then((response) => setTreasures(response.data))
-      .catch((err) => setErr(err.response.data));
+      .catch((err) => setErr(err));
   }, [setTreasures]);
 
   //update a mapitem
@@ -88,7 +83,6 @@ const handleEditMapitem = (treasureId) => {
         setTreasures(response.data) })
     .catch((err) => { console.log('error while updated treasure ', err) })
   }
-
 
   if (position) {
     return (
@@ -117,12 +111,14 @@ const handleEditMapitem = (treasureId) => {
           >
             <Popup>
               <div style={popupContent}>
+              {treasure.image? (
                 <img
                   src={treasure.image}
-                  alt="stone"
+                  alt={treasure.itemname}
                   width="40px"
                   className="stone-popUp"
                 />
+              ): null}
                 <h5>{treasure.itemname}</h5>
                 <div style={description}>{treasure.locdesc}</div>
                 Founded?
