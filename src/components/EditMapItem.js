@@ -29,7 +29,7 @@ function EditMapItem (props) {
 
                 <form onSubmit={() => {onEdit(filteredMapItem)}} className="form">
                     <input name="locdesc" type="text" className="register-input" id="LocationDescription" placeholder="Give a new description" />
-                    <button type="submit"  className="btn centered-btn">Save the new location!</button>
+                    <button type="submit"  className="btn centered-btn" id="LocationDescription">Save the new location!</button>
 
                 </form>
 

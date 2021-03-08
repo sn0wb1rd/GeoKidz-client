@@ -139,6 +139,8 @@ function App(props) {
       });
   };
 
+
+
   return (
     <div className="App">
       <div className="gradient-background">
@@ -209,7 +211,7 @@ function App(props) {
             path="/map/edit/:mapitemId"
             render={(routeProps) => {
               return (
-                <EditMapItem user={loggedInUser} mapitems={mapitems} onEdit={handleEditMapitem} {...routeProps} /> );
+                <EditMapItem user={loggedInUser} mapitems={mapitems}  {...routeProps} /> );
             }}
           />    
 

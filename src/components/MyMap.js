@@ -36,11 +36,20 @@ const description = {
   fontSize: "15px",
 };
 
-const MyMap = () => {
+
+const MyMap = (props) => {
+  const {user} = props
+
   let [position, setPosition] = useState(null);
-  let [treasures, setTreasures] = useState(null);
+  let [treasures, setTreasures] = useState([]);
   let [nextPanel, setNextPanel] = useState(null);
-  let [setErr] = useState(null);
+  let [Err, setErr] = useState(null);
+  let [locdesc, setLocdesc] = useState("")
+
+  // set value of the input field for the location description
+  const handleInput = event => {
+    setLocdesc(event.target.value)
+  }
 
   const checkNextStep = () => {
     useEffect(() => {
@@ -62,6 +71,24 @@ const MyMap = () => {
       .then((response) => setTreasures(response.data))
       .catch((err) => setErr(err.response.data));
   }, [setTreasures]);
+
+  //update a mapitem
+const handleEditMapitem = (treasureId) => {
+  console.log('here in the handleEditMapItem')
+
+  axios
+    .patch(`${config.API_URL}/api/mapitems/${treasureId}`, {
+      locdesc: locdesc,
+      finder: user.username,
+      lat: position[0],
+      long: position[1],
+    })
+    .then((response) => {
+        // database is updates. Don't forget to update the state
+        setTreasures(response.data) })
+    .catch((err) => { console.log('error while updated treasure ', err) })
+  }
+
 
   if (position) {
     return (
@@ -98,13 +125,27 @@ const MyMap = () => {
                 />
                 <h5>{treasure.itemname}</h5>
                 <div style={description}>{treasure.locdesc}</div>
+                Founded?
                 <button
                   onClick={checkNextStep}
                   type="submit"
                   className="form-btn centered-btn"
                 >
-                  Founded
+                 Leave it here!
                 </button>
+                <div >
+                <input  onChange={handleInput} name="locdesc" type="text" placeholder="give new location desc"  id="LocationDescription" />
+                  <button
+                    onClick={ () => { handleEditMapitem(treasure._id) } }
+                    type="submit"
+                    className="form-btn centered-btn"
+                    id="LocationDescription" 
+                  >
+                  Hide somewhere else!
+                  </button>
+
+                </div>
+
               </div>
             </Popup>
           </Marker>
