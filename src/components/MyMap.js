@@ -36,21 +36,18 @@ const description = {
   fontSize: "15px",
 };
 
-
 const MyMap = (props) => {
-  const {user} = props
+  const { user } = props;
 
   let [position, setPosition] = useState(null);
   let [treasures, setTreasures] = useState([]);
-  let [nextPanel, setNextPanel] = useState(null);
-  let [Err, setErr] = useState(null);
-  let [locdesc, setLocdesc] = useState("")
+  let [setErr] = useState(null);
+  let [locdesc, setLocdesc] = useState("");
 
   // set value of the input field for the location description
-  const handleInput = event => {
-    setLocdesc(event.target.value)
-  }
-
+  const handleInput = (event) => {
+    setLocdesc(event.target.value);
+  };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -67,21 +64,39 @@ const MyMap = (props) => {
       .catch((err) => setErr(err));
   }, [setTreasures]);
 
-  //update a mapitem
-const handleEditMapitem = (treasureId) => {
-  console.log('here in the handleEditMapItem')
 
-  axios
-    .patch(`${config.API_URL}/api/mapitems/${treasureId}`, {
-      locdesc: locdesc,
-      finder: user.username,
-      lat: position[0],
-      long: position[1],
-    })
-    .then((response) => {
-        // database is updates. Don't forget to update the state
-        setTreasures(response.data) })
-    .catch((err) => { console.log('error while updated treasure ', err) })
+  // const editTreasure = (treasure) => {
+  //   console.log("here in the handleEditMapItem", treasure);
+  //   console.log(locdesc);
+  //   console.log(user.username);
+
+  //   let newObjhistory = {
+  //     finder: user.username,
+  //     lat: pos.coords.latitude,
+  //     long: pos.coords.longitude,
+  //   };
+
+  //   axios
+  //      .patch(`${config.API_URL}/api/mapitems/${treasure._id}`, {
+  //       locdesc: locdesc,
+  //       objhistory: newObjhistory
+  //    })
+  //      .then((response) => {
+  //     console.log(response)
+  //           let updatedTreasures = treasures.map((treasure) => {
+
+  // };
+
+  const handleSubmit = (e) => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        editTreasure(e, pos);
+      },
+      (err) => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      },
+      getPositionOptions
+    );
   }
 
   if (position) {
@@ -111,37 +126,39 @@ const handleEditMapitem = (treasureId) => {
           >
             <Popup>
               <div style={popupContent}>
-              {treasure.image? (
-                <img
-                  src={treasure.image}
-                  alt={treasure.itemname}
-                  width="40px"
-                  className="stone-popUp"
-                />
-              ): null}
+                {treasure.image ? (
+                  <img
+                    src={treasure.image}
+                    alt={treasure.itemname}
+                    width="40px"
+                    className="stone-popUp"
+                  />
+                ) : null}
                 <h5>{treasure.itemname}</h5>
                 <div style={description}>{treasure.locdesc}</div>
                 Founded?
-                <button
-                  onClick={checkNextStep}
-                  type="submit"
-                  className="form-btn centered-btn"
-                >
-                 Leave it here!
+                <button type="submit" className="form-btn centered-btn">
+                  Leave it here!
                 </button>
-                <div >
-                <input  onChange={handleInput} name="locdesc" type="text" placeholder="give new location desc"  id="LocationDescription" />
-                  <button
-                    onClick={ () => { handleEditMapitem(treasure._id) } }
-                    type="submit"
-                    className="form-btn centered-btn"
-                    id="LocationDescription" 
-                  >
-                  Hide somewhere else!
-                  </button>
-
+                <div>
+                  <form onSubmit={(e) => {
+                    handleSubmit(e)
+                  }}>
+                    <input
+                      name="locdesc"
+                      type="text"
+                      placeholder="give new location desc"
+                      id="LocationDescription"
+                    />
+                    <button
+                      type="submit"
+                      className="form-btn centered-btn"
+                      id="LocationDescription"
+                    >
+                      Hide somewhere else!
+                    </button>
+                  </form>
                 </div>
-
               </div>
             </Popup>
           </Marker>
