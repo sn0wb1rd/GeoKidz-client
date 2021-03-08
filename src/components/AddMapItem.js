@@ -25,7 +25,7 @@ function AddMapItem (props) {
       itemname: event.target.itemname.value,
       image: event.target.image.value,
       owner: user._id,
-      locdesc: event.target.image.value,
+      locdesc: event.target.locdesc.value,
       objhistory: newObjhistory,
     };
     console.log("in Appjs in handleSubmit -mapitem-- ", mapitem);

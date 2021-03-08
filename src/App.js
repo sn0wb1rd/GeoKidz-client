@@ -9,12 +9,13 @@ import MyNav from "./components/MyNav";
 import MyMap from "./components/MyMap";
 import MapDetails from "./components/MapDetails";
 import AddMapItem from "./components/AddMapItem";
+import EditMapItem from "./components/EditMapItem"
 import About from "./components/About";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [mapitems, updateMapitems] = useState([]);
-  const [messageDel, setMessageDel]  = useState(null)
+  const [message, setMessage]  = useState(null)
   const [error, setError] = useState(null);
   const history = useHistory();
 
@@ -115,15 +116,14 @@ function App(props) {
 
    //delete a mapitem
   const handleDelete = (mapitemId) => {
-  console.log('here in the handle delelte ',mapitemId, messageDel )
+  console.log('here in the handle delete ',mapitemId, message )
   axios
   .delete(`${config.API_URL}/api/mapitems/${mapitemId}`)
   .then(() => {
-    setMessageDel("Mapitem succesfully deleted")
+    setMessage("Treasure succesfully deleted!")
     let filteredMapitem = mapitems.filter((mapitem) => {
       return mapitem._id !== mapitemId })
-    updateMapitems(filteredMapitem)    
-    
+    updateMapitems(filteredMapitem)      
     history.push("/map");
   })
   .catch((err) => {
@@ -132,11 +132,31 @@ function App(props) {
   })
   } 
 
+  //edit a mapitem
+  const handleEditMapitem = (event) => {
+    console.log('here in the handleEditMapItem')
+    // console.log(mapitem)
+    console.log(event.target.locdesc.value)
+    // axios.
+    // .patch(`${config.API_URL}/mapitems/${mapitem._id}`, {
+    //   locdesc: ,
+    //   fidner: ,
+    //   lat: ,
+    //   long: ,
+
+    // })
+  }
+
 
   return (
     <div className="App">
       <div className="gradient-background">
         <MyNav onlogout={handleLogout} user={loggedInUser} />
+
+        message when something is deleted. Does not work yet; do not get null afterwards
+        {/* {                
+          message && <p>message: {message}</p>        
+        } */}
         
         <Switch>
           <Route exact path="/" component={Home} />
@@ -169,10 +189,18 @@ function App(props) {
           />
 
           <Route
+            path="/map/edit/:mapitemId"
+            render={(routeProps) => {
+              return (
+                <EditMapItem user={loggedInUser} mapitems={mapitems} onEdit={handleEditMapitem} {...routeProps} /> );
+            }}
+          />    
+
+          <Route
             path="/map"
             render={(routeProps) => {
               return ( 
-                <MyMap user={loggedInUser} messageDel={messageDel} {...routeProps} /> );
+                <MyMap user={loggedInUser} {...routeProps} /> );
             }}
           />
 
