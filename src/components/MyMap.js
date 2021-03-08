@@ -71,6 +71,8 @@ const MyMap = (props) => {
 const handleEditMapitem = (treasureId) => {
   console.log('here in the handleEditMapItem')
 
+
+
   axios
     .patch(`${config.API_URL}/api/mapitems/${treasureId}`, {
       locdesc: locdesc,
@@ -80,7 +82,16 @@ const handleEditMapitem = (treasureId) => {
     })
     .then((response) => {
         // database is updates. Don't forget to update the state
-        setTreasures(response.data) })
+        let newMapItems = treasures.map((singleMapitem) => {
+          if (singleMapitem._id === treasureId) {
+            console.log('check 4')
+            
+          }
+
+        })
+        console.log('--- ', response)
+       
+      })
     .catch((err) => { console.log('error while updated treasure ', err) })
   }
 
@@ -123,7 +134,7 @@ const handleEditMapitem = (treasureId) => {
                 <div style={description}>{treasure.locdesc}</div>
                 Founded?
                 <button
-                  onClick={checkNextStep}
+                  // onClick={checkNextStep}
                   type="submit"
                   className="form-btn centered-btn"
                 >

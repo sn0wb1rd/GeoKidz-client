@@ -12,7 +12,6 @@ import AddMapItem from "./components/AddMapItem";
 import EditMapItem from "./components/EditMapItem"
 import About from "./components/About";
 import Profile from "./components/Profile";
-import NextStep from "./components/NextStep"
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -231,7 +230,7 @@ function App(props) {
           />
           <Route
             path="/test"
-            component={NextStep}
+            // component={NextStep}
           />
         </Switch>
       </div>
