@@ -5,15 +5,23 @@ import pinguin from "../images/pinguin-face.png";
 import fox from "../images/fox-face.png";
 import unicorn from "../images/unicorn-34.png";
 
-const Home = () => {
+const Home = (props) => {
+  const checkLink = (props) => {
+    if (props.user) {
+      return "/map";
+    }
+    return "/signin"
+  };
+
+  console.log(props);
   return (
     <div>
       <div className="horizontally-align">
-      <div className="vertically-align">
-        <h1>Create treasures and find other ones.</h1>
-        <Link to="/signin">
-          <button className="btn">Play</button>
-        </Link>
+        <div className="vertically-align">
+          <h1>Create treasures and find other ones.</h1>
+          <Link to={checkLink(props)}>
+            <button className="geo-btn">Play</button>
+          </Link>
         </div>
         <img src={roundMap} alt="round-map" className="round-map"></img>
       </div>
