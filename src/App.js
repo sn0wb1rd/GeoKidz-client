@@ -38,7 +38,7 @@ function App(props) {
           console.log(
             "In Appjs, useEffect error with useeffect since loggeninuser is null"
           );
-          setError(err.response.data);
+          setError(err.response);
         });
     }
   }, []);
