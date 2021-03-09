@@ -10,6 +10,7 @@ import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import PopupTreasure from "./PopupTreasure"
 
 
 let getGuideImg = (guide) => {
@@ -56,7 +57,16 @@ const Profile = (props) => {
                   scrollWheelZoom={false}
                   id="map"
                 >
+                <TileLayer
+                  attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
+                  subdomains={'abcd'}
+                  minZoom= {1}
+                  maxZoom= {16}
+                  ext= {'jpg'}
+                />
                 <LayerControl></LayerControl>
+                
                 {/* <Control position="topleft" >
                     <button 
                       onClick={ () => setUserPosition({bounds: [51.3, 0.7]}) }
@@ -81,6 +91,7 @@ const Profile = (props) => {
                         icon={findingPosition}
                         position={[findings.lat,findings.long]}
                       >
+                        <PopupTreasure treasure={findings}></PopupTreasure>
                       </Marker>
                     )
                   })
