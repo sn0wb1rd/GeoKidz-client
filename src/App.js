@@ -16,7 +16,6 @@ import Profile from "./components/Profile";
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [mapitems, updateMapitems] = useState([]);
-  const [message, setMessage]  = useState(null)
   const [messageDel, setMessageDel] = useState(null);
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -210,7 +209,7 @@ function App(props) {
             path="/map/edit/:mapitemId"
             render={(routeProps) => {
               return (
-                <EditMapItem user={loggedInUser} mapitems={mapitems}  {...routeProps} /> );
+                <EditMapItem user={loggedInUser} mapitems={mapitems} {...routeProps} /> );
             }}
           />    
 
@@ -227,10 +226,6 @@ function App(props) {
             render={() => {
               return <About user={loggedInUser} />;
             }}
-          />
-          <Route
-            path="/test"
-            // component={NextStep}
           />
         </Switch>
       </div>
