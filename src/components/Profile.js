@@ -1,4 +1,4 @@
-import React,  {setState, useState, useEffect} from "react";
+import React, {setState, useState, useEffect} from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 // import Control from 'react-leaflet-control';
 import { Link } from 'react-router-dom';
@@ -32,11 +32,11 @@ const findingPosition = new L.Icon({
 
 const Profile = (props) => {
   const { user } = props;
+  //TODO: set bounding box from all items
+  //Amsterdam forest [52.324231, 4.837905]
   let [userposition, setUserPosition] = useState([52.324231, 4.837905])
 
-
-  
-  
+    
   if (user) {
     return (
     
@@ -57,6 +57,7 @@ const Profile = (props) => {
                   scrollWheelZoom={false}
                   id="map"
                 >
+                <LayerControl></LayerControl>
                 <TileLayer
                   attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
@@ -65,16 +66,7 @@ const Profile = (props) => {
                   maxZoom= {16}
                   ext= {'jpg'}
                 />
-                <LayerControl></LayerControl>
-                
-                {/* <Control position="topleft" >
-                    <button 
-                      onClick={ () => setUserPosition({bounds: [51.3, 0.7]}) }
-                    >
-                      Reset View
-                  </button>
-              </Control> */}
-
+   
 
                 <Marker
                     icon={findingPosition}
@@ -96,12 +88,10 @@ const Profile = (props) => {
                     )
                   })
                 }
-
                 </MapContainer>       
-            </div>
-            ) : (
-            <></>
-          )
+            </div> ) 
+            : 
+            ( <></> )
         }
 
 
