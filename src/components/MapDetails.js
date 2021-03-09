@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from "react/cjs/react.development";
 import axios from "axios";
 import config from "../config";
@@ -8,6 +8,7 @@ import { Spinner } from "react-bootstrap";
 const MyDetails = (props) => {
     // ## DELETE (added error and onDelte:
   const {user, onDelete, error} = props
+  const history = useHistory();
   //## changes error to errormp
   const [errormp, setError]  = useState(null)
   const [mapdetail, setMapdetails] = useState([])
@@ -16,22 +17,23 @@ const MyDetails = (props) => {
   // check if the user is loggedin for showing the page
   // if (!user) {return <Redirect to={'/'} /> }
 
-  const getMapdetails = () => {
-    let mapitemId = props.match.params.mapitemId
-    // console.log('in Mydetails - getMapDetails ', mapitemId)
-    
+  useEffect(() => {
     axios
-      .get(`${config.API_URL}/api/mapitems/${mapitemId}`)
+      .get(`${config.API_URL}/api/mapitems/${props.match.params.mapitemId}`)
       .then((response) => {
-        console.log('in response data: ', response)
         setMapdetails(response.data)
-        console.log('check: 1', mapdetail.itemname)
+        console.log('check: 1', response)
       })
       .catch((err) => {
         console.log('burned tosti', err)
-        setError(err.response.data)
+        setError(err.response)
       })
-  }
+
+    }, [])
+
+
+ 
+
 
  // ## NOT NECESSARY, OTHERWISE data gets loaded without clicking on the page 
 //   useEffect(() => {
@@ -40,39 +42,28 @@ const MyDetails = (props) => {
 //   },[])
   
 
-if (mapdetail) {
-  
+if (mapdetail && user) {  
 
     return (
 
       <div>
+          <button onClick={() => (history.push("/map"))}>Bring me back to the map!</button>
+          <h5>Treasure: {mapdetail.itemname}</h5>
+          <div>Location hint: {mapdetail.locdesc}</div>
+          <div>Owner: {mapdetail.owner.username}</div>
+          <div>Superpower owner: {mapdetail.owner.superpower}</div>
+          <div><img src={mapdetail.image} alt="round-map" className="round-map"></img></div>
+  
 
-          this is the page: mapdetails
-          <button onClick={() => getMapdetails()  } >Klik to get data</button>
+          {/* ## Display delete button when user is loggedin */}
           {
-            // ## add mapdetail.owner  as an extra condition
-            // owner should not be empty too
-            mapdetail && mapdetail.owner &&         
-            <div>
-              <div>{mapdetail.image}</div>
-              <div>{mapdetail.itemname}</div>
-              <div>{mapdetail.locdesc}</div>
-              <div>{mapdetail.owner.username}</div>
-              <div>{mapdetail.owner.superpower}</div>
-              
-              {/* ## Display delete button when user is loggedin */}
-              {
-                user.username === mapdetail.owner.username ? (
-                  <button onClick={() => { onDelete(mapdetail._id) } } >Delete</button>
-                ) 
-                : 
-                ( <div> you are not the owner</div> )              
-              }
+            user.username === mapdetail.owner.username 
+            ? 
+            ( <button onClick={() => { onDelete(mapdetail._id) } } >Delete</button> ) 
+            : 
+            ( <div> you are not the owner</div> )              
+           }
 
-            </div>
-          }
-
-          
 
       </div>
     );
@@ -80,7 +71,7 @@ if (mapdetail) {
 
   return (
     <div className="spinner">
-      <Spinner animation="border" variant="light" role="status">
+       <Spinner animation="border" variant="light" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
     </div>
