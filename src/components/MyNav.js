@@ -4,7 +4,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 import list from "../images/list.svg";
 
-const Nav = (props) => {
+const MyNav = (props) => {
   // console.log('in Nav | loggedinuser: --', loggedinuser)
   // console.log('in Nav | loggedinuser: --', loggedinuser)
 
@@ -48,4 +48,4 @@ const Nav = (props) => {
   );
 };
 
-export default Nav;
+export default MyNav;

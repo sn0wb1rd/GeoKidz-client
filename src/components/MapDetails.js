@@ -10,8 +10,8 @@ const MyDetails = (props) => {
   const {user, onDelete, error} = props
   const history = useHistory();
   //## changes error to errormp
-  const [errormp, setError]  = useState(null)
-  const [mapdetail, setMapdetails] = useState([])
+  const [errormp, setError] = useState(null);
+  const [mapdetail, setMapdetails] = useState([]);
 
 
   // check if the user is loggedin for showing the page
