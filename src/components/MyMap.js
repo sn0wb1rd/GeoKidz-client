@@ -16,12 +16,12 @@ const getPositionOptions = {
 };
 const kidPosition = new L.Icon({
   iconUrl:
-    "https://freepikpsd.com/wp-content/uploads/2019/10/animal-face-png-Free-PNG-Images-Transparent.png",
-  iconSize: [30, 30],
+    "https://res.cloudinary.com/alexandra-wtp/image/upload/v1615369978/bear_kfqmdf.png",
+  iconSize: [40, 40],
 });
 const stonePosition = new L.Icon({
   iconUrl:
-    "https://ucff3a825c2cc1051e5d8c5584b8.previews.dropboxusercontent.com/p/thumb/ABH-Hq3AjPOP8hCzfeTpmDrGR4tAmeu7QbgQItaYTWMlQHKyRDnA7IN5ZXeeWxV3v81y3EihW660rvx_613nQF-J7SEjZNTHI9D9hJS2baqWKj_3VLPeclcuecSV4NKeMH3ioCVPfEtr4etwcq-SIR3SlyjkfT5KTKmcWS9ow4dSIr6nYDfpYYy8skFGXBwE0iNCZ6p_gV9mGEYoY_Z7ODP3QX5sOozRBF1ieC9WrQUciKmbw8cEBhAox3ozlHzwA3dShvq8f6zBZrnqo0nBEHgkGxPUDYUhYLk0OuPdlAQ3D2wKk1tkvLZYmhD2BYZWlx90Rst5SxgnRItI8Y2WkR4U5RAER5Yau3bF45RDKkF0WumDy2HUW35BQzrw15K_n_MWwH1KOEKm418-yYUNcpvzXdDUv8x-4Xy3tJOCpkGafw/p.png?fv_content=true&size_mode=5",
+    "https://res.cloudinary.com/alexandra-wtp/image/upload/v1615367916/t1n7axjjzll1rf7e7pjk.svg",
   iconSize: [30, 40],
 });
 const popupContent = {
