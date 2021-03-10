@@ -32,17 +32,21 @@ const MyNav = (props) => {
             <img src={list} alt="drop-menu" className="drop-menu" />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-          <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-            <Dropdown.Item href="/about">About</Dropdown.Item>
-            <Dropdown.Item>
+            <Dropdown.Item href="/about">About</Dropdown.Item>            
               {props.user ? (
-                <button onClick={props.onlogout} className="sub-menu">
-                  Logout
-                </button>
-              ) : (
-                <></>
-              )}
-            </Dropdown.Item>
+                <div>
+                  <Dropdown.Item>
+                  <button onClick={props.onlogout} className="sub-menu">
+                    Profile
+                  </button>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                  <button onClick={props.onlogout} className="sub-menu">
+                    Logout
+                  </button>
+                  </Dropdown.Item>
+                </div>
+              ) : ( <></> )}            
           </Dropdown.Menu>
         </Dropdown>
       </Navbar.Collapse>
