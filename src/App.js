@@ -32,7 +32,7 @@ function App(props) {
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
           setLoggedInUser(response.data);
-          console.log("inAppjs in useEffect loggedinuser ");
+          console.log("inAppjs in useEffect loggedinuser: ", response.data);
         })
         .catch((err) => {
           console.log(
@@ -104,7 +104,6 @@ function App(props) {
   };
 
   const handleLogout = (event) => {
-    console.log("--here in handlelogout");
     axios
       .post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
       .then((response) => {

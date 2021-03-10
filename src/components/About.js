@@ -26,7 +26,8 @@ const About = (props) => {
         <div><Link to="/map/create">add a treasure on the map </Link></div>
         <div><Link to="/map/edit">edit a treasure on the map </Link></div>
         <div><img src="https://res.cloudinary.com/snowbird/image/upload/v1615137690/GeoKidz/pebble_8_wpovbn.jpg" alt="round-map" className="round-map"></img></div>
-   
+        GeoKidz is a social outdoor game where kids can create and search for treasures by learning how to find their way with a digital map.
+        When the treasure is found you can gain rewards and optionally find a new hideout nearby.
      </div>
   );
 };

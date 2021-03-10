@@ -7,6 +7,7 @@ import axios from "axios";
 import config from "../config.js";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import LayerControl from "./LayerControl"
 
 
 const getPositionOptions = {
@@ -113,6 +114,7 @@ const MyMap = (props) => {
           scrollWheelZoom={false}
           id="map"
         >
+       <LayerControl></LayerControl>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
