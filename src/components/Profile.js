@@ -26,7 +26,7 @@ let getGuideImg = (guide) => {
 
 const findingPosition = new L.Icon({
   iconUrl:
-    "https://www.flaticon.com/svg/vstatic/svg/1040/1040230.svg?token=exp=1615285860~hmac=1afb27476fb01ae98494c634dac63d48",
+    "https://res.cloudinary.com/alexandra-wtp/image/upload/v1615367916/t1n7axjjzll1rf7e7pjk.svg",
   iconSize: [30, 40],
 });
 
