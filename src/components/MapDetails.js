@@ -28,7 +28,7 @@ const MyDetails = (props) => {
       })
     }, [])
 
-
+ 
 // both user and mapdetail has to be loaded with values
 if (user && mapdetail.owner) { 
 
