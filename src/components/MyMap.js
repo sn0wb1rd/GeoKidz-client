@@ -115,10 +115,6 @@ const MyMap = (props) => {
           id="map"
         >
        <LayerControl></LayerControl>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
           <Marker icon={kidPosition} position={position}>
             <Popup className="pop-up">You're here!</Popup>
           </Marker>

@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Navbar, Dropdown, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import list from "../images/list.svg";
 
 const MyNav = (props) => {
-  // console.log('in Nav | loggedinuser: --', loggedinuser)
-  // console.log('in Nav | loggedinuser: --', loggedinuser)
+  const history = useHistory();
 
   return (
     <Navbar>
@@ -36,7 +35,7 @@ const MyNav = (props) => {
               {props.user ? (
                 <div>
                   <Dropdown.Item>
-                  <button onClick={props.onlogout} className="sub-menu">
+                  <button onClick={() => (history.push("/profile"))} className="sub-menu">
                     Profile
                   </button>
                   </Dropdown.Item>
