@@ -31,7 +31,7 @@ function App(props) {
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
           setLoggedInUser(response.data);
-          console.log("in useEffect loggedinuser: ", loggedInUser);
+          console.log("inAppjs in useEffect loggedinuser ");
         })
         .catch((err) => {
           console.log(
