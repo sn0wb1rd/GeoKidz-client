@@ -12,6 +12,7 @@ import AddMapItem from "./components/AddMapItem";
 import EditMapItem from "./components/EditMapItem"
 import About from "./components/About";
 import Profile from "./components/Profile";
+import ErrorPage from "./components/ErrorPage.js";
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -227,6 +228,11 @@ function App(props) {
               return <About user={loggedInUser} />;
             }}
           />
+          <Route
+            path="/"
+            component = {ErrorPage}
+          />
+
         </Switch>
       </div>
       <div className="empty-triangle"></div>
