@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
 
 const ErrorPage = () => {
-  return(
-  <div className="neutral-background">
-    <h2>404</h2>
-    <h2>This page doesn't exist my friend</h2>
-  </div>
-  )
-}
+  return (
+    <div className="neutral-background">
+      <div className="centered-text">
+        <h2>404</h2>
+        <h4>This page doesn't exist my friend...</h4>
+      </div>
+    </div>
+  );
+};
 
 export default ErrorPage;
