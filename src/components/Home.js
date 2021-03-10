@@ -13,7 +13,6 @@ const Home = (props) => {
     return "/signin"
   };
 
-  console.log(props);
   return (
     <div>
       <div className="horizontally-align">

@@ -63,11 +63,7 @@ if (mapdetail && user) {
 
             })
           } */}
-
           <div><img src={mapdetail.image} alt="round-map" className="round-map"></img></div>
-  
-
-
       </div>
     );
   }
