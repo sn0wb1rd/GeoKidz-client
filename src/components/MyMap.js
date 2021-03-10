@@ -8,6 +8,8 @@ import config from "../config.js";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LayerControl from "./LayerControl"
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 
 const getPositionOptions = {
@@ -41,7 +43,7 @@ const description = {
 
 const MyMap = (props) => {
   let leaveItBtn;
-  const { user } = props;
+  const { user, onConfirm } = props;
   let [position, setPosition] = useState(null);
   let [treasures, setTreasures] = useState([]);
   let [setErr] = useState(null);
@@ -70,10 +72,10 @@ const MyMap = (props) => {
   }, [setTreasures]);
 
   const editTreasure = (e, pos, treasureId, locDesc, leaveItBtn) => {
-    displaySuccessMesage();
     let locationDescription = "";
     if (leaveItBtn) {
       locationDescription = locDesc;
+      onConfirm('leaveHere');
     } else {
       locationDescription = e.target.locdesc.value;
     }
@@ -94,6 +96,7 @@ const MyMap = (props) => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         editTreasure(e, pos, treasureId, locDesc, leaveItBtn);
+
       },
       (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -108,6 +111,7 @@ const MyMap = (props) => {
         <Link to="/map/create" className="newTreasure-btn">
           New treasure
         </Link>
+        <NotificationContainer/>
         <MapContainer
           center={position}
           zoom={15}
@@ -153,8 +157,8 @@ const MyMap = (props) => {
                         e,
                         treasure._id,
                         treasure.locdesc,
-                        (firstBtn = true)
-                      );
+                        (leaveItBtn = true)
+                      )                      
                     }}
                     type="submit"
                     className="form-btn centered-btn"
@@ -173,17 +177,20 @@ const MyMap = (props) => {
                       }}
                     >
                       <button
+                        onClick={onConfirm('newLocation')}   
                         type="submit"
                         className="form-btn centered-btn"
-                        id="LocationDescription"
+                        id="LocationDescriptionLeave"
+
+                        
                       >
-                        Store a new position
+                        Store a new location
                       </button>
                       <input
                         name="locdesc"
                         type="text"
                         placeholder="New hint"
-                        id="LocationDescription"
+                        id="LocationDescriptionNew"
                         className="register-input"
                       />
                     </form>
