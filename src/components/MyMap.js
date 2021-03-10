@@ -14,7 +14,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const getPositionOptions = {
   enableHighAccuracy: true,
-  timeout: 5000,
+  timeout: 500,
   maximumAge: 0,
 };
 
@@ -75,9 +75,11 @@ const MyMap = (props) => {
     let locationDescription = "";
     if (leaveItBtn) {
       locationDescription = locDesc;
-      onConfirm('leaveHere');
+      NotificationManager.info('Well done, you earned 10 points!', 'Saved as founded treasure');
     } else {
       locationDescription = e.target.locdesc.value;
+      NotificationManager.info('Well done, you earned 20 points!', 'Treasure is found, new location is saved!');
+
     }
 
     axios
@@ -96,7 +98,6 @@ const MyMap = (props) => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         editTreasure(e, pos, treasureId, locDesc, leaveItBtn);
-
       },
       (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -152,13 +153,13 @@ const MyMap = (props) => {
                     on the corresponding button to store the new position.
                   </p>
                   <button
-                    onClick={(e) => {
+                    onClick={(e) => {onConfirm('newLocation'),
                       handleSubmit(
                         e,
                         treasure._id,
                         treasure.locdesc,
                         (leaveItBtn = true)
-                      )                      
+                      )                    
                     }}
                     type="submit"
                     className="form-btn centered-btn"
@@ -177,12 +178,9 @@ const MyMap = (props) => {
                       }}
                     >
                       <button
-                        onClick={onConfirm('newLocation')}   
                         type="submit"
                         className="form-btn centered-btn"
-                        id="LocationDescriptionLeave"
-
-                        
+                        id="LocationDescriptionLeave"                        
                       >
                         Store a new location
                       </button>
