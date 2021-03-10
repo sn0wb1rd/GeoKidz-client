@@ -44,11 +44,6 @@ h3 {
   -webkit-transition: background-color 7s ease-out!important;
 }
 
-input>#file-upload-button {
-  background: white!important;
-  border: none;
-}
-
 .sub-menu {
   background-color: transparent;
   border: none;
@@ -208,7 +203,6 @@ input>#file-upload-button {
   top: -230px;
   border-top: 230px solid transparent;
   border-right: 1500px solid rgb(187, 235, 252);
-  z-index: 4;
 }
 
 /*Round transparent map*/
