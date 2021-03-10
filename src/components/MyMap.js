@@ -7,33 +7,39 @@ import axios from "axios";
 import config from "../config.js";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-let firstBtn; // initialisation for conditional action when clicking on treasure detail
+
 
 const getPositionOptions = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0,
 };
+
 const kidPosition = new L.Icon({
   iconUrl:
     "https://res.cloudinary.com/alexandra-wtp/image/upload/v1615369978/bear_kfqmdf.png",
   iconSize: [40, 40],
 });
+
 const stonePosition = new L.Icon({
   iconUrl:
     "https://res.cloudinary.com/alexandra-wtp/image/upload/v1615367916/t1n7axjjzll1rf7e7pjk.svg",
   iconSize: [30, 40],
 });
+
 const popupContent = {
   textAlign: "center",
   margin: "10px",
   padding: "10px",
 };
+
 const description = {
   padding: "20px",
   fontSize: "15px",
 };
+
 const MyMap = (props) => {
+  let leaveItBtn;
   const { user } = props;
   let [position, setPosition] = useState(null);
   let [treasures, setTreasures] = useState([]);
@@ -62,10 +68,10 @@ const MyMap = (props) => {
       });
   }, [setTreasures]);
 
-  const editTreasure = (e, pos, treasureId, locDesc, firstBtn) => {
-    console.log("check 1 ", firstBtn);
+  const editTreasure = (e, pos, treasureId, locDesc, leaveItBtn) => {
+    displaySuccessMesage();
     let locationDescription = "";
-    if (firstBtn) {
+    if (leaveItBtn) {
       locationDescription = locDesc;
     } else {
       locationDescription = e.target.locdesc.value;
@@ -82,11 +88,11 @@ const MyMap = (props) => {
       .catch((err) => console.log(err));
   };
 
-  const handleSubmit = (e, treasureId, locDesc, firstBtn) => {
+  const handleSubmit = (e, treasureId, locDesc, leaveItBtn) => {
     e.preventDefault();
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        editTreasure(e, pos, treasureId, locDesc, firstBtn);
+        editTreasure(e, pos, treasureId, locDesc, leaveItBtn);
       },
       (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -164,7 +170,7 @@ const MyMap = (props) => {
                           e,
                           treasure._id,
                           treasure.locdesc,
-                          (firstBtn = false)
+                          (leaveItBtn = false)
                         );
                       }}
                     >

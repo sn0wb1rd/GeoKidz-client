@@ -34,8 +34,7 @@ if (user && mapdetail.owner) {
 
     return (
       <div>
-          <div>blabla</div>
-          <button onClick={() => (history.push("/map"))}>Bring me back to the map!</button>
+          <button className="form-btn" onClick={() => (history.push("/map"))}>Bring me back to the map!</button>
           {/* ## Display delete button when user is loggedin */}
           {
             user.username === mapdetail.owner.username
