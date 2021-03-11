@@ -7,8 +7,7 @@ import axios from "axios";
 import config from "../config.js";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LayerControl from "./LayerControl"
-
+import LayerControl from "./LayerControl";
 
 const getPositionOptions = {
   enableHighAccuracy: true,
@@ -70,7 +69,6 @@ const MyMap = (props) => {
   }, [setTreasures]);
 
   const editTreasure = (e, pos, treasureId, locDesc, leaveItBtn) => {
-    displaySuccessMesage();
     let locationDescription = "";
     if (leaveItBtn) {
       locationDescription = locDesc;
@@ -105,16 +103,19 @@ const MyMap = (props) => {
   if (position) {
     return (
       <div className="map-page">
-        <Link to="/map/create" className="newTreasure-btn">
-          New treasure
-        </Link>
+        <div className="top-map">
+          <Link to="/map/create" className="transparent-btn no-style-link">
+            New treasure
+          </Link>
+          <div>Points: </div>
+        </div>
         <MapContainer
           center={position}
           zoom={15}
           scrollWheelZoom={false}
           id="map"
         >
-       <LayerControl></LayerControl>
+          <LayerControl></LayerControl>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -147,8 +148,8 @@ const MyMap = (props) => {
                   </Link>
                   <div style={description}>Hint: {treasure.locdesc}</div>
                   <p>
-                    Founded? Well done! Now choose what to do : leave it here,
-                    or find another hidde. Once you've find the new hide, click
+                    Founded? Well done! <br></br>Now choose what to do : <strong>leave it here</strong>,
+                    or <strong>find another hidde</strong>. Once you've find the new hide, click
                     on the corresponding button to store the new position.
                   </p>
                   <button
@@ -157,11 +158,11 @@ const MyMap = (props) => {
                         e,
                         treasure._id,
                         treasure.locdesc,
-                        (firstBtn = true)
+                        (leaveItBtn = true)
                       );
                     }}
                     type="submit"
-                    className="form-btn centered-btn"
+                    className="form-btn centered-btn other-color"
                   >
                     Leave it here
                   </button>
@@ -188,7 +189,7 @@ const MyMap = (props) => {
                         type="text"
                         placeholder="New hint"
                         id="LocationDescription"
-                        className="register-input"
+                        className="register-input hint-input"
                       />
                     </form>
                   </div>

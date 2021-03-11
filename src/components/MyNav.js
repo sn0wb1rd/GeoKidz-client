@@ -28,12 +28,23 @@ const MyNav = (props) => {
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end nav-element-padding">
         <Dropdown>
-          <Dropdown.Toggle variant="success" className="dropdown-button" id="dropdown-basic">
+          <Dropdown.Toggle
+            variant="success"
+            className="dropdown-button"
+            id="dropdown-basic"
+          >
             <img src={list} alt="drop-menu" className="drop-menu" />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-          <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-            <Dropdown.Item href="/about">About</Dropdown.Item>
+            <Dropdown.Item href="/map" className="sub-menu">
+              Map
+            </Dropdown.Item>
+            <Dropdown.Item href="/profile" className="sub-menu">
+              Profile
+            </Dropdown.Item>
+            <Dropdown.Item href="/about" className="sub-menu">
+              About
+            </Dropdown.Item>
             <Dropdown.Item>
               {props.user ? (
                 <button onClick={props.onlogout} className="sub-menu">
