@@ -51,12 +51,11 @@ const Profile = (props) => {
           alt="guide"
           className="avatar-talk"
         />
-        <h2>Treasures</h2>
+        <h2>My Treasures</h2>
         {/* Check if there are findings. */}
         {user.findings.length !== 0 ? (
-          <div>
+          <div >
             <MapContainer
-              style={{ width: "800px", height: "500px" }}
               center={userposition}
               zoom={15}
               scrollWheelZoom={false}
@@ -92,10 +91,13 @@ const Profile = (props) => {
         ) : (
           <></>
         )}
-        {user.findings.length !== 0 ? (
+
+         {user.findings.length !== 0 ? (
           user.findings.map((finding) => {
             return (
-              <div key={finding._id}>
+              <div 
+              className="paragraph"
+                key={finding._id}>
                 <div>Itemname: {finding.itemname}</div>
                 <div>Owner: {finding.owner}</div>
                 <div>
@@ -110,6 +112,9 @@ const Profile = (props) => {
           <Link className="transparent-btn no-style-link" to="/map">Find one</Link>
           </div>
         )}
+
+
+
       </div>
     );
   }

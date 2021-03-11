@@ -113,7 +113,8 @@ const MyMap = (props) => {
           <Link to="/map/create" className="transparent-btn no-style-link">
             New treasure
           </Link>
-          <div>Points: </div>
+          <NotificationContainer/>
+          <div>Points: 50 </div>
         </div>
         <MapContainer
           center={position}
@@ -151,7 +152,7 @@ const MyMap = (props) => {
                   <div style={description}>Hint: {treasure.locdesc}</div>
                   <p>
                     Founded? Well done! <br></br>Now choose what to do : <strong>leave it here</strong>,
-                    or <strong>find another hidde</strong>. Once you've find the new hide, click
+                    or <strong>find another place to hide</strong>. Once you've find the new hide, click
                     on the corresponding button to store the new position.
                   </p>
                   <button

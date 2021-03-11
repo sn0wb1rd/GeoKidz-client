@@ -3,6 +3,8 @@ import axios from "axios";
 import config from "../config";
 import { useHistory } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 
 const getPositionOptions = {
   enableHighAccuracy: true,
@@ -18,6 +20,8 @@ function AddMapItem(props) {
 
   const addTreasure = (event, pos) => {
     console.log(event.target.itemname.value)
+    NotificationManager.succes('Wauw! You just create and hide a new Treasure');
+
     let newObjhistory = {
       finder: user.username,
       lat: pos.coords.latitude,
@@ -83,6 +87,7 @@ function AddMapItem(props) {
   if (user) {
       return (
         <div>
+        <NotificationContainer/>
           <form
             onSubmit={(event) => {
               handleSubmit(event);

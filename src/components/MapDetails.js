@@ -4,6 +4,7 @@ import { useState, useEffect } from "react/cjs/react.development";
 import axios from "axios";
 import config from "../config";
 import { Spinner } from "react-bootstrap";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const MyDetails = (props) => {
   const { user, onDelete, error } = props;
@@ -32,6 +33,7 @@ const MyDetails = (props) => {
     return (
       <div>
         <div className="profileContent">
+        <NotificationContainer/>
           <div>
             <img
               src={mapdetail.image}

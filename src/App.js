@@ -95,7 +95,7 @@ function App(props) {
       .post(`${config.API_URL}/api/signup`, user, { withCredentials: true })
       .then((response) => {
         setLoggedInUser(response.data);
-        history.push("/map");
+        history.push("/map"); 
       })
       .catch((err) => {
         console.log("burned tosti", err);
@@ -141,8 +141,9 @@ function App(props) {
   };
 
   //delete a mapitem
-  const handleDelete = (mapitemId) => {
-    console.log("here in the handle delelte ", mapitemId, messageDel);
+  const handleDelete = (mapitemId) => { 
+    NotificationManager.warning('You just succesfully deleted the treasure!');   
+    ('warning')
     axios
       .delete(`${config.API_URL}/api/mapitems/${mapitemId}`)
       .then(() => {
@@ -168,6 +169,7 @@ function App(props) {
     <div className="App">
       <div className="gradient-background">
         <MyNav onlogout={handleLogout} user={loggedInUser} />
+        <NotificationContainer/>
       
         <Switch>
           <Route
