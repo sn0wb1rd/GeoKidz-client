@@ -7,11 +7,14 @@ import axios from "axios";
 import config from "../config.js";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LayerControl from "./LayerControl";
+import LayerControl from "./LayerControl"
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+
 
 const getPositionOptions = {
   enableHighAccuracy: true,
-  timeout: 5000,
+  timeout: 500,
   maximumAge: 0,
 };
 
@@ -40,7 +43,7 @@ const description = {
 
 const MyMap = (props) => {
   let leaveItBtn;
-  const { user } = props;
+  const { user, onConfirm } = props;
   let [position, setPosition] = useState(null);
   let [treasures, setTreasures] = useState([]);
   let [setErr] = useState(null);
@@ -72,8 +75,11 @@ const MyMap = (props) => {
     let locationDescription = "";
     if (leaveItBtn) {
       locationDescription = locDesc;
+      NotificationManager.info('Well done, you earned 10 points!', 'Saved as founded treasure');
     } else {
       locationDescription = e.target.locdesc.value;
+      NotificationManager.info('Well done, you earned 20 points!', 'Treasure is found, new location is saved!');
+
     }
 
     axios
@@ -115,11 +121,7 @@ const MyMap = (props) => {
           scrollWheelZoom={false}
           id="map"
         >
-          <LayerControl></LayerControl>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+       <LayerControl></LayerControl>
           <Marker icon={kidPosition} position={position}>
             <Popup className="pop-up">You're here!</Popup>
           </Marker>
@@ -153,7 +155,7 @@ const MyMap = (props) => {
                     on the corresponding button to store the new position.
                   </p>
                   <button
-                    onClick={(e) => {
+                    onClick={(e) => {onConfirm('newLocation'),
                       handleSubmit(
                         e,
                         treasure._id,
@@ -180,9 +182,9 @@ const MyMap = (props) => {
                       <button
                         type="submit"
                         className="form-btn centered-btn"
-                        id="LocationDescription"
+                        id="LocationDescriptionLeave"                        
                       >
-                        Store a new position
+                        Store a new location
                       </button>
                       <input
                         name="locdesc"

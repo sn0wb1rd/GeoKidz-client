@@ -1,6 +1,7 @@
 import React, { setState, useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Link } from "react-router-dom";
+// import Control from 'react-leaflet-control';
+import { Link, Redirect } from "react-router-dom";
 import pinguin from "../images/pinguin-face.png";
 import thunder from "../images/thunder.png";
 import fox from "../images/fox-face.png";
@@ -61,15 +62,14 @@ const Profile = (props) => {
               scrollWheelZoom={false}
               id="map"
             >
-              <LayerControl></LayerControl>
-              <TileLayer
+             <TileLayer
                 attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}"
-                subdomains={"abcd"}
-                minZoom={1}
-                maxZoom={16}
-                ext={"jpg"}
-              />
+                subdomains={'abcd'}
+                minZoom= {1}
+                maxZoom= {16}
+                ext= {'jpg'}
+                />
               <Marker
                 icon={findingPosition}
                 position={[user.findings[0].lat, user.findings[0].long]}
@@ -114,13 +114,9 @@ const Profile = (props) => {
     );
   }
 
-  return (
-    <div className="spinner">
-      <Spinner animation="border" variant="light" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
-  );
+  // return (
+  //   <Redirect to={'/signin'} />
+  // );
 };
 
 export default Profile;

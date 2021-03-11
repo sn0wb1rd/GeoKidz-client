@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Redirect, Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import config from "./config";
 import Home from "./components/Home";
@@ -13,6 +13,27 @@ import EditMapItem from "./components/EditMapItem"
 import About from "./components/About";
 import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage.js";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+// handle notifications overall in app
+  const createNotification = (type) => {
+    return () => {
+      switch (type) {
+        case 'leaveHere':
+          NotificationManager.info('Well done, you earned 10 points!', 'Saved as founded treasure');
+          break;
+        case 'newLocation':
+          NotificationManager.info('Well done, you earned 20 points!', 'Treasure is found, new location is saved!');
+          break;
+        case 'success':
+          NotificationManager.success('Super!');
+          break;
+        case 'warning':
+          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+          break;
+      }
+    };
+  }
 
 function App(props) {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -22,6 +43,8 @@ function App(props) {
   const history = useHistory();
 
   // TODO: add to (almost) all request { withCredentials: true }
+
+
 
   // This will run just once after the first render and never again (with [] as 2nd useEffect parameter)
   // Like componentDidMount
@@ -138,17 +161,14 @@ function App(props) {
   };
 
 
+  // For several Routes the 'loggedInUser' is used to check weather the user
+  // is loggedin. Otehrwise a errorpage rises.
 
   return (
     <div className="App">
       <div className="gradient-background">
         <MyNav onlogout={handleLogout} user={loggedInUser} />
-
-        {/* message when something is deleted. Does not work yet; do not get null afterwards */}
-        {/* {                
-          message && <p>message: {message}</p>        
-        } */}
-        
+      
         <Switch>
           <Route
             exact
@@ -178,13 +198,17 @@ function App(props) {
               );
             }}
           />
-          <Route
+
+          {loggedInUser && 
+            <Route
             path="/profile"
             render={(routeProps) => {
               return <Profile user={loggedInUser} {...routeProps} />;
-            }}
-          />
-          <Route
+            }}  /> 
+          }
+          
+          {loggedInUser && 
+            <Route
             path="/mapdetails/:mapitemId"
             render={(routeProps) => {
               return (
@@ -197,29 +221,36 @@ function App(props) {
               );
             }}
           />
+          }
 
+          {loggedInUser &&
           <Route
             path="/map/create"
             render={(routeProps) => {
               return <AddMapItem user={loggedInUser} {...routeProps} />;
             }}
           />
+          }
 
-          <Route
+          {loggedInUser && 
+            <Route
             path="/map/edit/:mapitemId"
             render={(routeProps) => {
               return (
                 <EditMapItem user={loggedInUser} mapitems={mapitems} {...routeProps} /> );
             }}
-          />    
+          />           
+          }
 
-          <Route
-            path="/map"
-            render={(routeProps) => {
-              return ( 
-                <MyMap user={loggedInUser} {...routeProps} /> );
-            }}
-          />
+          {loggedInUser &&           
+            <Route
+              path="/map"
+              render={(routeProps) => {
+                return ( 
+                  <MyMap user={loggedInUser} onConfirm={createNotification} {...routeProps} /> );
+              }}
+            />          
+          } 
 
           <Route
             path="/about"

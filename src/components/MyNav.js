@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Navbar, Dropdown, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import list from "../images/list.svg";
 
 const MyNav = (props) => {
-  // console.log('in Nav | loggedinuser: --', loggedinuser)
-  // console.log('in Nav | loggedinuser: --', loggedinuser)
+  const history = useHistory();
 
   return (
     <Navbar>
@@ -36,24 +35,32 @@ const MyNav = (props) => {
             <img src={list} alt="drop-menu" className="drop-menu" />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href="/map" className="sub-menu">
-              Map
-            </Dropdown.Item>
-            <Dropdown.Item href="/profile" className="sub-menu">
-              Profile
-            </Dropdown.Item>
             <Dropdown.Item href="/about" className="sub-menu">
               About
             </Dropdown.Item>
-            <Dropdown.Item>
-              {props.user ? (
-                <button onClick={props.onlogout} className="sub-menu">
-                  Logout
-                </button>
-              ) : (
-                <></>
-              )}
-            </Dropdown.Item>
+
+            {props.user ? (
+              <div>
+                <Dropdown.Item href="/map" className="sub-menu">
+                  Map
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <button
+                    onClick={() => history.push("/profile")}
+                    className="sub-menu"
+                  >
+                    Profile
+                  </button>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <button onClick={props.onlogout} className="sub-menu">
+                    Logout
+                  </button>
+                </Dropdown.Item>
+              </div>
+            ) : (
+              <></>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </Navbar.Collapse>
