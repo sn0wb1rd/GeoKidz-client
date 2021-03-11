@@ -34,27 +34,33 @@ const MyNav = (props) => {
           >
             <img src={list} alt="drop-menu" className="drop-menu" />
           </Dropdown.Toggle>
-          <Dropdown.Menu>          
-            <Dropdown.Item href="/map" className="sub-menu">
-              Map
-            </Dropdown.Item>
+          <Dropdown.Menu>
             <Dropdown.Item href="/about" className="sub-menu">
               About
             </Dropdown.Item>
-              {props.user ? (
-                <div>
-                  <Dropdown.Item>
-                  <button onClick={() => (history.push("/profile"))} className="sub-menu">
+
+            {props.user ? (
+              <div>
+                <Dropdown.Item href="/map" className="sub-menu">
+                  Map
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <button
+                    onClick={() => history.push("/profile")}
+                    className="sub-menu"
+                  >
                     Profile
                   </button>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
+                </Dropdown.Item>
+                <Dropdown.Item>
                   <button onClick={props.onlogout} className="sub-menu">
                     Logout
                   </button>
-                  </Dropdown.Item>
-                </div>
-              ) : ( <></> )}            
+                </Dropdown.Item>
+              </div>
+            ) : (
+              <></>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </Navbar.Collapse>

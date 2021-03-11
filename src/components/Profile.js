@@ -1,6 +1,7 @@
 import React, { setState, useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Link } from "react-router-dom";
+// import Control from 'react-leaflet-control';
+import { Link, Redirect } from "react-router-dom";
 import pinguin from "../images/pinguin-face.png";
 import thunder from "../images/thunder.png";
 import fox from "../images/fox-face.png";
