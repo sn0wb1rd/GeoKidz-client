@@ -16,8 +16,12 @@ Cindy Teeven and Alexandra Westendorp
 
 Follow these links to find more information about the code of the server and the client side.
 Or feel free to visit our LinkedIn page:
+
 [Alexandra Westendorp](https://www.linkedin.com/in/alexandra-westendorp/)
+
 [Cindy Teeven](https://www.linkedin.com/in/cindytvn/)
+
+![](https://res.cloudinary.com/snowbird/image/upload/v1615470898/GeoKidz/Landingpage_eufnjm.png)
 
 ## **MVP**
 - Signup/login/logout
@@ -42,34 +46,19 @@ Or feel free to visit our LinkedIn page:
 ### /
 
 ## **APIs**
-### api/signup
-- POST: create new user. Properties needed:
-username, password, guide, superpower 
-### api/signin 
-- POST: sign in with user, based on unique user
-Properties needed:
-username, password
-### api/logout
-- POST: Logout user and delete session
-### api/user/finding/:userId
-- POST: post findings to userprofile. Properties needed:
-itemname, owner, lat, long, points
-### api//user/details/:userId
-- GET: gets specific user data. Properties needed: userId (from url)
-### api/mapitems
-- GET: Get all the mapitems. No properties needed as input
-### api/create
-- POST:Create new mapitem. Properties needed:
-mapitemId, itemname, image, owner, locdesc, objhistory (is an object)
-### api/mapitem/:mapitemId
-- GET: Get a specific mapitem
-properties needed: mapitem._id
-Gets properties:
-itemname, image, owner: {username, superpower}, locdesc, objhistory {finder, lat, long}
-### /mapitems/:mapitemId
-- PACTH: Update a mapitem it’s description and finder (location). 
-properties needed: locdesc, finder, lat, long
-last object in Objhistory is the currect location.
+|  |   |  |
+| :-----: | :-: | :- |
+| api/signup | POST | create new user. Properties needed:username, password, guide, superpower  |
+| api/signin | POST | sign in with user, based on unique userProperties needed: username, password |
+| api/logout | POST | Logout user and delete session |
+| api/user/finding/:userId | POST |  post findings to userprofile. Properties needed:itemname, owner, lat, long, points |
+| api//user/details/:userId | GET |  gets specific user data. Properties needed: userId (from url) |
+| api/mapitems | GET |  Get all the mapitems. No properties needed as input |
+| api/create | POST |  Create new mapitem. Properties needed:mapitemId, itemname, image, owner, locdesc, objhistory (is an object) |
+| api/mapitem/:mapitemId | GET |  Get a specific mapitem properties needed: mapitem._id. Gets properties:itemname, image, owner: {username, superpower}, locdesc, objhistory {finder, lat, long} |
+| /mapitems/:mapitemId | PATCH |  Update a mapitem it’s description and finder (location). properties needed: locdesc, finder, lat, long,last object in Objhistory is the currect location. |
+| api/user/finding/:userId | PATCH | Post findings to userprofile properties needed: itemname, owner, lat, long (and UserID from url)
+ |
 
 
 ## **Models**
@@ -101,6 +90,8 @@ last object in Objhistory is the currect location.
 - Other categories of treasures besides stones, like picture bases, little challenges, sport-exercise games, chalk on the ground, find a specific spot based on hint/description
 - Compare the new location of the treasure with the surroundings. So when you place a treasure close to a big road, it is not allowed. (comparison with geodata from roads).
 - Bingo card to fill when you found a treasure. Full bingo: surprise picture of famous cartoon (Frozen)
+
+![](https://res.cloudinary.com/snowbird/image/upload/v1615470899/GeoKidz/guides_an4yda.png)
 
 ## **Links**
 - [Presentation Link](https://slides.com/cindytvn/deck-6e9b1f)
