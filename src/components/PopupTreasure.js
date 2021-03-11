@@ -16,8 +16,6 @@ const popupContent = {
 
 const PopupTreasure = (props) => {    
     const {treasure} = props
-    console.log('props pupup',  props)
-    console.log('props treause',  treasure)
 
     return (
         <Popup>

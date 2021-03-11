@@ -43,7 +43,7 @@ const description = {
 
 const MyMap = (props) => {
   let leaveItBtn;
-  const { user, onConfirm } = props;
+  const { user, onConfirm, error } = props;
   let [position, setPosition] = useState(null);
   let [treasures, setTreasures] = useState([]);
   let [setErr] = useState(null);
@@ -114,7 +114,7 @@ const MyMap = (props) => {
             New treasure
           </Link>
           <NotificationContainer/>
-          <div>Points: 50 </div>
+          <div className="names">Points: 50 </div>
         </div>
         <MapContainer
           center={position}
@@ -146,9 +146,9 @@ const MyMap = (props) => {
                     />
                   ) : null}
                   <h5>{treasure.itemname}</h5>
-                  <Link to={`/mapdetails/${treasure._id}`}>
+                  {/* <Link to={`/mapdetails/${treasure._id}`}>
                     See more details
-                  </Link>
+                  </Link> */}
                   <div style={description}>Hint: {treasure.locdesc}</div>
                   <p>
                     Founded? Well done! <br></br>Now choose what to do : <strong>leave it here</strong>,
@@ -194,6 +194,9 @@ const MyMap = (props) => {
                         id="LocationDescription"
                         className="register-input hint-input"
                       />
+                      {                
+                        error && <p>{error.errorMessage}</p>        
+                      }
                     </form>
                   </div>
                 </div>

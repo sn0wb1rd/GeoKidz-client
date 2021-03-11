@@ -17,7 +17,6 @@ const MyDetails = (props) => {
   // if (!user) {return <Redirect to={'/'} /> }
 
   useEffect(() => {
-    console.log("in useEffect");
     axios
       .get(`${config.API_URL}/api/mapitems/${props.match.params.mapitemId}`)
       .then((response) => {
@@ -33,7 +32,6 @@ const MyDetails = (props) => {
     return (
       <div>
         <div className="profileContent">
-        <NotificationContainer/>
           <div>
             <img
               src={mapdetail.image}

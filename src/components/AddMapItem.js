@@ -15,12 +15,9 @@ const getPositionOptions = {
 function AddMapItem(props) {
   const { user } = props;
   const history = useHistory();
-  console.log(user)
-
 
   const addTreasure = (event, pos) => {
-    console.log(event.target.itemname.value)
-    NotificationManager.succes('Wauw! You just create and hide a new Treasure');
+    NotificationManager.info('Wauw! You just create new treasure!');
 
     let newObjhistory = {
       finder: user.username,
@@ -35,7 +32,6 @@ function AddMapItem(props) {
       locdesc: event.target.locdesc.value,
       objhistory: newObjhistory,
     };
-    console.log("in Appjs in handleSubmit -mapitem-- ", mapitem);
 
     let uploadForm = new FormData();
     uploadForm.append("imageUrl", mapitem.image);
@@ -54,11 +50,10 @@ function AddMapItem(props) {
             withCredentials: true,
           })
           .then((response) => {
-            console.log("in Appjs handleSubmit res data: ", response.data);
             history.push("/map");
           })
           .catch((err) => {
-            console.log("burned tosti in post create item:", err);
+            console.log("error while loading", err);
           });
       })
       .catch((err) => {
@@ -77,7 +72,7 @@ function AddMapItem(props) {
       },
       getPositionOptions
     );
-    console.log("here in the handleSubmit!");
+
     // when new mapitem is created, the first founder is same as owner
   };
 

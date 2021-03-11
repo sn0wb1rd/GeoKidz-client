@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function SignIn(props) {
-  console.log("signin :", props);
-
   return (
     <form onSubmit={props.onSignIn} className="form">
       <h3>Login</h3>

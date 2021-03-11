@@ -9,7 +9,6 @@ import MyNav from "./components/MyNav";
 import MyMap from "./components/MyMap";
 import MapDetails from "./components/MapDetails";
 import AddMapItem from "./components/AddMapItem";
-import EditMapItem from "./components/EditMapItem";
 import About from "./components/About";
 import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage.js";
@@ -66,13 +65,9 @@ function App(props) {
         .get(`${config.API_URL}/api/user`, { withCredentials: true })
         .then((response) => {
           setLoggedInUser(response.data);
-          console.log("inAppjs in useEffect loggedinuser: ", response.data);
         })
         .catch((err) => {
-          console.log(
-            "In Appjs, useEffect error with useeffect since loggeninuser is null"
-          );
-          setError(err.response);
+          setError(err);
         });
     }
   }, []);
@@ -85,10 +80,7 @@ function App(props) {
         updateMapitems(response.data);
       })
       .catch((err) => {
-        console.log(
-          "In Appjs, useEffect error with useeffect since loggeninuser is null"
-        );
-        setError(err.response);
+        setError(err);
       });
   }, []);
 
@@ -100,7 +92,6 @@ function App(props) {
       guide: event.target.guide.value,
       superpower: event.target.superpower.value,
     };
-    console.log("user sigup: ---- ", user);
 
     axios
       .post(`${config.API_URL}/api/signup`, user, { withCredentials: true })
@@ -109,7 +100,6 @@ function App(props) {
         history.push("/map"); 
       })
       .catch((err) => {
-        console.log("burned tosti", err);
         setError(err.response.data);
       });
   };
@@ -128,7 +118,6 @@ function App(props) {
         history.push("/map");
       })
       .catch((err) => {
-        console.log("burned tosti:", err);
         setError(err.response.data);
       });
   };
@@ -138,12 +127,10 @@ function App(props) {
       .post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
       .then((response) => {
         setLoggedInUser(null);
-        console.log("Logout post | loggedinUser: ", response);
         history.push("/");
       })
       .catch((err) => {
         setError(err.response.data);
-        console.log("error while logging out", err);
       });
   };
 
@@ -164,7 +151,6 @@ function App(props) {
       })
       .catch((err) => {
         setError(err.response.data);
-        console.log("error while deleting mapitem", err);
       });
   };
 
@@ -203,19 +189,10 @@ function App(props) {
             <Route
               path="/map/create"
               render={(routeProps) => {
-                return <AddMapItem user={loggedInUser} {...routeProps} />;
-              }}
-            />
-            <Route
-              path="/map/edit/:mapitemId"
-              render={(routeProps) => {
-                return (
-                  <EditMapItem
-                    user={loggedInUser}
-                    mapitems={mapitems}
-                    {...routeProps}
-                  />
-                );
+                return <AddMapItem
+                  error={error} 
+                  user={loggedInUser} 
+                  {...routeProps} />;
               }}
             />
             <Route
@@ -304,19 +281,6 @@ function App(props) {
           />
           <Route
             path="/map/create"
-            render={(routeProps) => {
-              return (
-                <SignIn
-                  error={error}
-                  onSignIn={handleSignIn}
-                  {...routeProps}
-                  guide="fox"
-                />
-              );
-            }}
-          />
-          <Route
-            path="/map/edit/:mapitemId"
             render={(routeProps) => {
               return (
                 <SignIn

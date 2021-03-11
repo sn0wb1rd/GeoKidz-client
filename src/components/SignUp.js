@@ -15,7 +15,6 @@ let getGuideImg = (guide) => {
 };
 
 function SignUp(props){
-    console.log('Signup props-----', props)
 
     return (
         <form onSubmit={props.onSignUp} className="form">
