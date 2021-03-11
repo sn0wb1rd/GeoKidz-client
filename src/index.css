@@ -96,6 +96,7 @@ h3 {
   height: 50px;
   margin-top: 5px;
   transition: background-color 2s ease-out;
+  width: 100px;
 }
 
 .transparent-btn:hover {

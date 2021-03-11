@@ -6,6 +6,7 @@ import fox from "../images/fox-face.png";
 import unicorn from "../images/unicorn-34.png";
 
 const Home = (props) => {
+  
   let getGuideImg = (guide) => {
     switch (guide) {
       case "fox":

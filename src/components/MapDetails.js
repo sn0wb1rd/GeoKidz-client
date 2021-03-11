@@ -48,6 +48,7 @@ const MyDetails = (props) => {
               onClick={() => {
                 onDelete(mapdetail._id);
               }}
+              className="transparent-btn centered-btn"
             >
               Delete
             </button>
