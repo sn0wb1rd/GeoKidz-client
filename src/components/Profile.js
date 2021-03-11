@@ -1,7 +1,7 @@
 import React, { setState, useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 // import Control from 'react-leaflet-control';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import pinguin from "../images/pinguin-face.png";
 import thunder from "../images/thunder.png";
 import fox from "../images/fox-right.png";
@@ -114,13 +114,9 @@ const Profile = (props) => {
     );
   }
 
-  return (
-    <div className="spinner">
-      <Spinner animation="border" variant="light" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
-  );
+  // return (
+  //   <Redirect to={'/signin'} />
+  // );
 };
 
 export default Profile;

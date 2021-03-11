@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Redirect, Switch, Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import config from "./config";
 import Home from "./components/Home";
@@ -15,7 +15,7 @@ import Profile from "./components/Profile";
 import ErrorPage from "./components/ErrorPage.js";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
-// handle notifications
+// handle notifications overall in app
   const createNotification = (type) => {
     return () => {
       switch (type) {
@@ -161,6 +161,8 @@ function App(props) {
   };
 
 
+  // For several Routes the 'loggedInUser' is used to check weather the user
+  // is loggedin. Otehrwise a errorpage rises.
 
   return (
     <div className="App">
@@ -196,13 +198,17 @@ function App(props) {
               );
             }}
           />
-          <Route
+
+          {loggedInUser && 
+            <Route
             path="/profile"
             render={(routeProps) => {
               return <Profile user={loggedInUser} {...routeProps} />;
-            }}
-          />
-          <Route
+            }}  /> 
+          }
+          
+          {loggedInUser && 
+            <Route
             path="/mapdetails/:mapitemId"
             render={(routeProps) => {
               return (
@@ -215,29 +221,36 @@ function App(props) {
               );
             }}
           />
+          }
 
+          {loggedInUser &&
           <Route
             path="/map/create"
             render={(routeProps) => {
               return <AddMapItem user={loggedInUser} {...routeProps} />;
             }}
           />
+          }
 
-          <Route
+          {loggedInUser && 
+            <Route
             path="/map/edit/:mapitemId"
             render={(routeProps) => {
               return (
                 <EditMapItem user={loggedInUser} mapitems={mapitems} {...routeProps} /> );
             }}
-          />    
+          />           
+          }
 
-          <Route
-            path="/map"
-            render={(routeProps) => {
-              return ( 
-                <MyMap user={loggedInUser} onConfirm={createNotification} {...routeProps} /> );
-            }}
-          />
+          {loggedInUser &&           
+            <Route
+              path="/map"
+              render={(routeProps) => {
+                return ( 
+                  <MyMap user={loggedInUser} onConfirm={createNotification} {...routeProps} /> );
+              }}
+            />          
+          } 
 
           <Route
             path="/about"
