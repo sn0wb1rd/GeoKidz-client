@@ -1,10 +1,9 @@
 import React, { setState, useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-// import Control from 'react-leaflet-control';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import pinguin from "../images/pinguin-face.png";
 import thunder from "../images/thunder.png";
-import fox from "../images/fox-right.png";
+import fox from "../images/fox-face.png";
 import unicorn from "../images/unicorn-34.png";
 import LayerControl from "./LayerControl";
 import { Spinner } from "react-bootstrap";
@@ -39,22 +38,19 @@ const Profile = (props) => {
   if (user) {
     return (
       <div className="profileContent">
-        <h1>Profile of {user.username}</h1>
+        <h2>{user.username}</h2>
         <div>
           Superpower <img className="thunder" src={thunder} alt="thunder" />{" "}
           <img src={thunder} alt="thunder" className="thunder" />{" "}
           <img src={thunder} alt="thunder" className="thunder" />:{" "}
           {user.superpower}
         </div>
-        <div className="bubble">
-          Hey {user.username} !
-          <div>Here are the treasures you've collected: </div>
-          <img
+        <img
           src={getGuideImg(user.guide)}
           alt="guide"
           className="avatar-talk"
         />
-        </div>
+        <h2>Treasures</h2>
         {/* Check if there are findings. */}
         {user.findings.length !== 0 ? (
           <div>
@@ -108,7 +104,10 @@ const Profile = (props) => {
             );
           })
         ) : (
-          <div>Oww you haven't any treasures yet!</div>
+          <div>
+          <div className="on-top">Oww you haven't any treasures yet! </div>
+          <Link className="transparent-btn no-style-link" to="/map">Find one</Link>
+          </div>
         )}
       </div>
     );

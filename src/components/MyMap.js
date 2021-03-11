@@ -109,10 +109,12 @@ const MyMap = (props) => {
   if (position) {
     return (
       <div className="map-page">
-        <Link to="/map/create" className="newTreasure-btn">
-          New treasure
-        </Link>
-        <NotificationContainer/>
+        <div className="top-map">
+          <Link to="/map/create" className="transparent-btn no-style-link">
+            New treasure
+          </Link>
+          <div>Points: </div>
+        </div>
         <MapContainer
           center={position}
           zoom={15}
@@ -148,8 +150,8 @@ const MyMap = (props) => {
                   </Link>
                   <div style={description}>Hint: {treasure.locdesc}</div>
                   <p>
-                    Founded? Well done! Now choose what to do : leave it here,
-                    or find another hidde. Once you've find the new hide, click
+                    Founded? Well done! <br></br>Now choose what to do : <strong>leave it here</strong>,
+                    or <strong>find another hidde</strong>. Once you've find the new hide, click
                     on the corresponding button to store the new position.
                   </p>
                   <button
@@ -159,10 +161,10 @@ const MyMap = (props) => {
                         treasure._id,
                         treasure.locdesc,
                         (leaveItBtn = true)
-                      )                    
+                      );
                     }}
                     type="submit"
-                    className="form-btn centered-btn"
+                    className="form-btn centered-btn other-color"
                   >
                     Leave it here
                   </button>
@@ -188,8 +190,8 @@ const MyMap = (props) => {
                         name="locdesc"
                         type="text"
                         placeholder="New hint"
-                        id="LocationDescriptionNew"
-                        className="register-input"
+                        id="LocationDescription"
+                        className="register-input hint-input"
                       />
                     </form>
                   </div>

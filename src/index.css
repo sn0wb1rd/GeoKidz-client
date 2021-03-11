@@ -1,5 +1,4 @@
 html, body {
-  position: relative;
   margin: 0;
   overflow-x: hidden;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
@@ -41,16 +40,18 @@ h3 {
 .btn-success {
   background: rgba(255, 255, 255, 0.2)!important;
   border-color: transparent!important;
-  transition: background-color 7s ease-out!important;
+  transition: background-color 2s ease-out!important;
 }
 
 .sub-menu {
   background-color: transparent;
   border: none;
   padding: 0;
+  color: white!important;
 }
 
 .dropdown-menu {
+  background-color: rgba(157, 184, 207, 0.9)!important;
   text-align: center!important;
   top: 110%!important;
   padding: 1.5rem!important;
@@ -66,35 +67,40 @@ h3 {
   box-shadow: none!important;
 }
 
+.on-top {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
 /* Buttons */
-
-.newTreasure-btn {
-  margin: 10px auto;
-  text-align: center;
-  background: rgb(211, 211, 211, 0.5);
-  color: white;
-  padding: 10px;
-  border-radius: 20px;
-  transition: background-color 4s ease-out;
-}
-
-.newTreasure-btn:hover {
-  background-color: rgba(75, 148, 136, 0.5);
-  text-decoration: none;
-  color: white;
-}
 
 .geo-btn {
   background-color: rgb(24, 24, 89);
   color: white;
   border: none;
   border-radius: 20px;
-  margin: 30px;
-  padding: 10px;
+  margin: 10px;
+  padding: 5px;
   z-index: 2;
   font-size: 20px;
   width: 100px;
   box-shadow: 1px 1px 5px 1px rgb(53, 49, 49);
+}
+
+.transparent-btn {
+  background: rgb(139, 165, 187);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  margin-top: 5px;
+  transition: background-color 2s ease-out;
+  width: 100px;
+}
+
+.transparent-btn:hover {
+  background-color: rgba(49, 130, 133, 1)
 }
 
 .form-btn {
@@ -105,11 +111,18 @@ h3 {
   font-size: 14px;
   padding: 7px 30px;
   box-shadow: 1px 1px 5px 1px rgb(149, 154, 158);
+  display: flex;
+  align-content: center;
+  text-decoration: none;
 }
 
 .form-btn:hover {
   background: rgb(77, 77, 134);
   transition: background-color 0.2s ease-out;
+}
+
+.other-color {
+  background-color: rgb(126, 126, 126);
 }
 
 .geo-btn:hover {
@@ -154,6 +167,7 @@ h3 {
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  margin: 10px;
 }
 
 .horizontally-align {
@@ -194,6 +208,11 @@ h3 {
   margin: 80px auto;
 }
 
+.hint-input {
+  font-size: 14px;
+  padding: 5px;
+}
+
 /* Background */
 
 .gradient-background {
@@ -219,14 +238,28 @@ h3 {
   height: 350px;
   border-radius: 100%;
   border: solid 3px rgb(255, 255, 255);
-  margin: 20px;
+  margin: 0px;
 }
 
 /* Avatars */
 
 .avatar {
   width: 80px;
+  height: 115px;
   z-index: 2;
+}
+
+.speech-balloon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-size: 280px;
+  width: 250px;
+  height: 130px;
+  margin: 30px 10px;
+  border: solid 10px white;
+  background-color: #c4dfff;
 }
 
 .avatar-card {
@@ -238,7 +271,7 @@ h3 {
   border: solid 1px white;
   border-radius: 20px;
   padding: 20px;
-  width: 110px;
+  width: 120px;
   height: auto;
 }
 
@@ -261,9 +294,18 @@ h3 {
 .avatar-talk {
   width: 60px;
   margin: 10px auto;
+  z-index: 3;
 }
 
 /* Map */
+
+.top-map {
+  display: flex;
+  padding: 0 40px;
+  justify-content: space-between;
+  background-color: rgb(255, 255, 255);
+  height: 55px;
+}
 
 .map-page {
   display: flex;
@@ -322,8 +364,56 @@ h3 {
 }
 
 .profileContent {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 30px;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Treasure detail */
+.about-treasure {
+   width: 200px;
+   border-radius: 100%;
+   margin: auto;
+   border: solid 2px white;
+}
+
+/* About */
+
+.about-photo {
+  width: 150px;
+  height: 160px;
+  z-index: 2;
+  position: relative;
+  border-radius: 100%;
+  margin: 0 20px 20px 20px;
+  border: solid 2px white;
+}
+
+.double-pic {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.paragraph {
+  margin: auto;
+  padding: 20px 50px;
+  text-align: justify;
+  max-width: 800px;
+  background: rgb(170, 196, 222);
+  background: linear-gradient(180deg, rgba(170, 196, 222, 1) 0%, rgba(255, 255, 255, 1) 66%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 10px;
+}
+
+.names {
+  margin: auto;
+  text-align: right;
+  padding: 20px 50px;
+  background-color: white;
+  max-width: 800px;
+  font-weight: bold;
 }

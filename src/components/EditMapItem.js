@@ -15,9 +15,6 @@ function EditMapItem (props) {
     let filteredMapItem = mapitems.find(elem => elem._id == mapitemId)
     console.log(filteredMapItem)
 
-
-
-
     return (
         <div>
              this is the page: edit mapitem
